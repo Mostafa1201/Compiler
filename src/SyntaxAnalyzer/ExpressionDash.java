@@ -1,6 +1,5 @@
 package SyntaxAnalyzer;
 
-public interface Type {
-
+public interface ExpressionDash {
 	public String getValue();
 }

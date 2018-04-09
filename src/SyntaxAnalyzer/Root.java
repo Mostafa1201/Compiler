@@ -1,6 +1,5 @@
 package SyntaxAnalyzer;
 
-public interface Type {
-
+public interface Root {
 	public String getValue();
 }

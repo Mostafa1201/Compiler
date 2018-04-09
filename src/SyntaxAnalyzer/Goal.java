@@ -2,10 +2,10 @@ package SyntaxAnalyzer;
 
 import java.util.ArrayList;
 
-public class Goal implements Node{
+public class Goal implements Root{
 	MainClass mainClass;
 	ArrayList<ClassDeclaration> classDeclaration;
-	String EOF = "";//
+	String EOF = "<EOF>";//
 	
 	public Goal() {
 		super();

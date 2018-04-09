@@ -1,5 +1,5 @@
 package SyntaxAnalyzer;
 
-public interface Node {
+public interface ExpressionNewDash {
 	public String getValue();
 }

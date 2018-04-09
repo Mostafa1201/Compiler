@@ -1,5 +1,5 @@
 package SyntaxAnalyzer;
 
-public class Expression {
-
+public interface Expression {
+	String getValue();
 }

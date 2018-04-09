@@ -1,6 +1,6 @@
 package SyntaxAnalyzer;
 
-public interface Type {
+public interface TypeDash {
 
 	public String getValue();
 }

@@ -1,4 +1,4 @@
-package Tokenizer;
+package LexicalAnalyzer;
 
 public class Token {
 String value , type;
