@@ -1,5 +1,5 @@
 package SyntaxAnalyzer;
 
-public interface Statement {
+public interface StatementDash {
 	String getValue();
 }
