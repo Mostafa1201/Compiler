@@ -2,6 +2,7 @@ package SyntaxAnalyzer;
 
 public class ExtendsID implements Root{
 
+	String Extends = "extends";
 	Identifier id;
 
 	public ExtendsID() {
@@ -9,14 +10,15 @@ public class ExtendsID implements Root{
 		this.id = null;
 	}
 
-	public ExtendsID(Identifier id) {
+	public ExtendsID(String Extends,Identifier id) {
 		super();
+		this.Extends = Extends;
 		this.id = id;
 	}
 
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return "extends " + id.getValue(); 
+		return Extends + " " + id.getValue(); 
 	}
 }

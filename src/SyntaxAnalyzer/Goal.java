@@ -31,6 +31,6 @@ public class Goal implements Root{
 				str += classDeclaration.get(i).getValue() + ",";
 			}
 		}
-		return mainClass.getValue() + str +" \n EOF";
+		return mainClass.getValue() + str + "\n" + EOF;
 	}
 }

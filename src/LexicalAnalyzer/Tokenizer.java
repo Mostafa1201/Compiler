@@ -1,6 +1,7 @@
 package LexicalAnalyzer;
 import java.io.*;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -8,15 +9,25 @@ import java.util.regex.Pattern;
 
 public class Tokenizer {
     static Map<Integer, Token> indexMap = new TreeMap<Integer, Token>();
+    static Queue<Token> tokensQueue;
+    
+    public Tokenizer(String fileName)
+    {
+    	read(fileName);
+    }
+   
+    public static Queue<Token> getTokensQueue() {
+		return tokensQueue;
+	}
 
-    public static void read() {
+	public static void read(String filename) {
         try {
-            String input = new Scanner(new File("input.txt")).useDelimiter("\\Z").next() + "\n";
+            String input = new Scanner(new File(filename)).useDelimiter("\\Z").next() + "\n";
             match(input);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        print();
+       // print();
     }
 
     public static void match(String x) {
@@ -1004,6 +1015,10 @@ public class Tokenizer {
                 fill += " ";
             input.replace(matcher.start(), matcher.end(), fill);
         }
+        for (int i : indexMap.keySet()) {
+        		tokensQueue.offer(indexMap.get(i));
+        }  
+        
     }
 
     public static void print() {
@@ -1050,7 +1065,8 @@ public class Tokenizer {
     }
 
     public static void main(String args[]) {
-        read();
+        String filename="input.txt";
+    	read(filename);
     }
 
 }

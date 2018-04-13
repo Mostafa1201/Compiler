@@ -60,8 +60,8 @@ public class Main {
 		MethodDeclaration methodPublicInt = new MethodDeclaration("public",funcType,idComputeFac,allParams,varDeclarations,stmts,returnExp);	
 		methodDeclarations.add(methodPublicInt);
 		
-		ExtendsID extID = new ExtendsID(new Identifier());
-		classDeclarations.add(new ClassDeclaration(idComputeFac,extID,new ArrayList<VarDeclaration>(),new ArrayList<ConstructorDeclaration>(),methodDeclarations));
+		ExtendsID extID = new ExtendsID("",new Identifier());
+		classDeclarations.add(new ClassDeclaration(idFac,extID,new ArrayList<VarDeclaration>(),new ArrayList<ConstructorDeclaration>(),methodDeclarations));
 		Goal goal = new Goal(mainClass,classDeclarations);
 		System.out.println(goal.getValue());
 	}
