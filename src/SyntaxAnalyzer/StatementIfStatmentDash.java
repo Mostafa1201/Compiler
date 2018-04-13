@@ -10,29 +10,25 @@ public class StatementIfStatmentDash implements Statement{
 	StatementDash statementdash;
 	
 	public StatementIfStatmentDash() {
-		this.IF = "if";
-		this.leftParenthesis = "(";
 		this.expression = null;
-		this.rightParenthesis = ")";
 		this.statment = null;
 		this.statementdash = null;
 	}
 
-	public StatementIfStatmentDash(String iF, String leftParenthesis, Expression expression, String rightParenthesis,
-			Statement statment, StatementDash statementdash) {
+	public StatementIfStatmentDash(Expression expression,Statement statment, StatementDash statementdash) {
 		super();
-		IF = iF;
-		this.leftParenthesis = leftParenthesis;
+		IF = "if";
+		this.leftParenthesis = "(";
 		this.expression = expression;
-		this.rightParenthesis = rightParenthesis;
+		this.rightParenthesis = ")";
 		this.statment = statment;
 		this.statementdash = statementdash;
 	}
 	
 	@Override
 	public String getValue() {
-		return IF + leftParenthesis + expression.getValue() + rightParenthesis +
-				statment.getValue() + statementdash.getValue();
+		return "\t" + IF + leftParenthesis + expression.getValue() + rightParenthesis +
+				" \n \t \t \t" + statment.getValue() + statementdash.getValue();
 	}
 	
 

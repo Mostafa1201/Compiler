@@ -9,20 +9,16 @@ public class StatementWhileExp implements Statement{
 	Statement statment;
 	
 	public StatementWhileExp() {
-		this.While = "while";
-		this.leftParenthesis = "(";
 		this.expression = null;
-		this.rightParenthesis = ")";
 		this.statment = null;
 	}
 	
-	public StatementWhileExp(String While, String leftParenthesis, Expression expression, String rightParenthesis,
-			Statement statment) {
+	public StatementWhileExp(Expression expression,Statement statment) {
 		super();
-		this.While = While;
-		this.leftParenthesis = leftParenthesis;
+		this.While = "while";
+		this.leftParenthesis = "(";
 		this.expression = expression;
-		this.rightParenthesis = rightParenthesis;
+		this.rightParenthesis = ")";
 		this.statment = statment;
 	}
 
@@ -31,7 +27,7 @@ public class StatementWhileExp implements Statement{
 	@Override
 	public String getValue() {
 		return While + leftParenthesis + expression.getValue() + rightParenthesis +
-				statment.getValue();
+				"\n" + statment.getValue();
 	}
 	
 

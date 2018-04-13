@@ -20,7 +20,7 @@ public class ExpressionLeftBracket implements Expression{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return "( " + exp.getValue() + " ) " + expDash.getValue();
+		return "(" + exp.getValue() + ")" + expDash.getValue();
 	}
 	
 }

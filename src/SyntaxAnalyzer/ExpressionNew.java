@@ -20,7 +20,7 @@ public class ExpressionNew implements Expression{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return "new" + expNewDash.getValue();
+		return "new " + expNewDash.getValue();
 	}
 	
 	

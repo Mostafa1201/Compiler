@@ -4,22 +4,16 @@ import java.util.ArrayList;
 
 public class StatementOrMore implements Statement{
 	
-	String leftCurly;
 	ArrayList<Statement> statments;
-	String rightCurly;
 	
 	public StatementOrMore() {
 		super();
-		this.leftCurly = "{";
 		this.statments =  new ArrayList<Statement>(0);
-		this.rightCurly = "}";
 	}
 
-	public StatementOrMore(String leftCurly, ArrayList<Statement> statments, String rightCurly) {
+	public StatementOrMore(ArrayList<Statement> statments) {
 		super();
-		this.leftCurly = leftCurly;
 		this.statments = statments;
-		this.rightCurly = rightCurly;
 	}
 	
 	@Override
@@ -30,7 +24,7 @@ public class StatementOrMore implements Statement{
 		{
 			str += statments.get(i).getValue()+" ";
 		}
-		return leftCurly + str + rightCurly;
+		return "{ \n" + str + "\n }";
 	}
 	
 }

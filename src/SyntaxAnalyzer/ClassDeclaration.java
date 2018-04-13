@@ -2,9 +2,8 @@ package SyntaxAnalyzer;
 import java.util.ArrayList;
 public class ClassDeclaration implements Root{
 	String ClasS;
-	Identifier id1;
-	ArrayList<String> Extends;
-	ArrayList<Identifier> id2;
+	Identifier id;
+	ExtendsID extendsID;
 	String leftCurly;
 	ArrayList<VarDeclaration> varr;
 	ArrayList<ConstructorDeclaration> carr;
@@ -12,32 +11,24 @@ public class ClassDeclaration implements Root{
 	String rightCurly;
 	
 	public ClassDeclaration() {
-		ClasS = "class";
-		this.id1 = null;
-		Extends = new ArrayList<String>(0);
-		this.id2 = new ArrayList<Identifier>(0);
-		this.leftCurly = "{";
+		this.id = null;
+		this.extendsID = null;
 		this.varr = new ArrayList<VarDeclaration>(0);
 		this.carr = new ArrayList<ConstructorDeclaration>(0);
 		this.marr = new ArrayList<MethodDeclaration>(0);
-		this.rightCurly = "}";
 	}
 
-	public ClassDeclaration(String clasS, Identifier id1, ArrayList<String> extends1, ArrayList<Identifier> id2, String leftCurly,
-			ArrayList<VarDeclaration> varr, ArrayList<ConstructorDeclaration> carr, ArrayList<MethodDeclaration> marr,
-			String rightCurly) {
-		ClasS = clasS;
-		this.id1 = id1;
-		Extends = extends1;
-		this.id2 = id2;
-		this.leftCurly = leftCurly;
+	public ClassDeclaration(Identifier id, ExtendsID extendsID,ArrayList<VarDeclaration> varr, ArrayList<ConstructorDeclaration> carr, ArrayList<MethodDeclaration> marr) {
+		ClasS = "class";
+		this.id = id;
+		this.extendsID = extendsID;
+		this.leftCurly = "{";
 		this.varr = varr;
 		this.carr = carr;
 		this.marr = marr;
-		this.rightCurly = rightCurly;
+		this.rightCurly = "}";
 	}
-	
-	
+		
 
 	@Override
 	public String getValue() {
@@ -56,11 +47,6 @@ public class ClassDeclaration implements Root{
 		{
 			mtemp += marr.get(i).getValue()+" ";
 		}
-		String extident="";
-		for(int i = 0  ; i < Extends.size() ; i++)
-		{
-			extident += Extends.get(i)+" "+id2.get(i).getValue()+" ";
-		}
-		return ClasS+" " + id1.getValue()+" " + extident+leftCurly+vtemp+ctemp+mtemp+rightCurly;
+		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ " " + leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
 	}
 }

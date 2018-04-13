@@ -9,20 +9,19 @@ public class VarDeclaration implements Root{
 	public VarDeclaration() {
 		this.type = null;
 		this.id = null;
-		this.semicolon = ";";
 	}
 
 
-	public VarDeclaration(Type type, Identifier id, String semicolon) {
+	public VarDeclaration(Type type, Identifier id) {
 		this.type = type;
 		this.id = id;
-		this.semicolon = semicolon;
+		this.semicolon = ";";
 	}
 	
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return type.getValue()+" "+id.getValue()+semicolon;
+		return "\t" + type.getValue()+" "+id.getValue()+" " +semicolon + "\n";
 	}
 	
 }

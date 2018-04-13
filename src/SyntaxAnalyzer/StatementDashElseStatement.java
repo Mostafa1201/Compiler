@@ -7,19 +7,18 @@ public class StatementDashElseStatement implements StatementDash{
 	
 	public StatementDashElseStatement() {
 		super();
-		this.Else = "else";
 		this.statement = null;
 	}
 
-	public StatementDashElseStatement(String Else, Statement statement) {
+	public StatementDashElseStatement(Statement statement) {
 		super();
-		this.Else = Else;
+		this.Else = "else";
 		this.statement = statement;
 	}
 	
 	@Override
 	public String getValue() {
-		return Else + statement.getValue();
+		return "\n \t \t" + Else + " \n \t \t \t" + statement.getValue()+ " \n";
 	}
 
 }

@@ -3,7 +3,7 @@ package SyntaxAnalyzer;
 public class StatementID implements Statement{
 
 	Identifier identifier;
-	StatementIdentifier statementidentifier;
+	StatementIdentifierDash statementidentifier;
 	
 	public StatementID() {
 		super();
@@ -11,7 +11,7 @@ public class StatementID implements Statement{
 		this.statementidentifier = null;
 	}
 
-	public StatementID(Identifier identifier, StatementIdentifier statementidentifier) {
+	public StatementID(Identifier identifier, StatementIdentifierDash statementidentifier) {
 		super();
 		this.identifier = identifier;
 		this.statementidentifier = statementidentifier;
@@ -19,7 +19,7 @@ public class StatementID implements Statement{
 	
 	@Override
 	public String getValue() {
-		return identifier.getValue() + statementidentifier.getValue();
+		return identifier.getValue() + " " + statementidentifier.getValue();
 	}
 
 }

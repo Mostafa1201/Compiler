@@ -26,9 +26,14 @@ public class ManyExpressions implements Expression{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		String temp = "";
-		for(int i = 0  ; i < anotherExps.size() ; i++)
+		if(anotherExps.size() == 1)temp += anotherExps.get(0).getValue();
+		else
 		{
-			temp += anotherExps.get(i)+" ";
+			for(int i = 0  ; i < anotherExps.size() ; i++)
+			
+			{
+				temp += anotherExps.get(i).getValue()+",";
+			}
 		}
 		return exp.getValue() + " " + temp;
 	}	

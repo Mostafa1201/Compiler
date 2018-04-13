@@ -22,7 +22,15 @@ public class Goal implements Root{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return mainClass.getValue() + "ClassDeclaratios" +"EOF";
+		String str = "";
+		if(classDeclaration.size() == 1) str += classDeclaration.get(0).getValue();
+		else
+		{
+			for(int i = 0 ; i < classDeclaration.size() ; i++)
+			{
+				str += classDeclaration.get(i).getValue() + ",";
+			}
+		}
+		return mainClass.getValue() + str +" \n EOF";
 	}
-	
 }
