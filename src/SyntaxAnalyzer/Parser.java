@@ -125,7 +125,194 @@ public class Parser {
 	
 	public Statement getStatement()
 	{	
-		
+		ArrayList<Statement> statements=new <Statement> ArrayList(0);
+		Expression exp;
+		Statement stm;
+		StatementDash stmdash;
+		Identifier id;
+		StatementIdentifierDash stmid;
+		if(tokens.peek().getType().equals("LEFT_CURLY_B")){
+			tokens.poll();							
+			statements = getStatements();
+			if(statements == null)
+			{
+				System.out.println("Syntax Error on Statements");
+				return null;
+			}
+			if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+			{
+				tokens.poll();
+				return new StatementOrMore(statements);
+			}
+		}
+		else if(tokens.peek().getType().equals("IF"))
+		{
+			tokens.poll();
+			if(tokens.peek().getType().equals("LEFT_ROUND_B"))
+			{
+				tokens.poll();
+				exp = getExpression();
+				if(exp == null)
+				{
+					System.out.println("Syntax Error on Expression");
+					return null;
+				}
+				if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
+				{
+					tokens.poll();
+					stm = getStatement();
+					if(stm == null)
+					{
+						System.out.println("Syntax Error on Statement");
+						return null;
+					}
+					stmdash = getStatementDash();
+					if(stmdash == null)
+					{
+						System.out.println("Syntax Error on StatementDash");
+						return null;
+					}
+					return new StatementIfStatmentDash(exp,stm,stmdash);
+				}
+			}
+			
+		}
+		else if(tokens.peek().getType().equals("WHILE"))
+		{
+			tokens.poll();
+			if(tokens.peek().getType().equals("LEFT_ROUND_B"))
+			{
+				tokens.poll();
+				exp = getExpression();
+				if(exp == null)
+				{
+					System.out.println("Syntax Error on Expression");
+					return null;
+				}
+				if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
+				{
+					tokens.poll();
+					stm = getStatement();
+					if(stm == null)
+					{
+						System.out.println("Syntax Error on Statement");
+						return null;
+					}
+					return new StatementWhileExp(exp,stm);
+				}
+			}
+		}
+		else if(tokens.peek().getType().equals("SYSTEM.OUT.PRINTLN"))
+		{
+			tokens.poll();
+			if(tokens.peek().getType().equals("LEFT_ROUND_B"))
+			{
+				tokens.poll();
+				exp = getExpression();
+				if(exp == null)
+				{
+					System.out.println("Syntax Error on Expression");
+					return null;
+				}
+				if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
+				{
+					tokens.poll();
+					if(tokens.peek().getType().equals("SEMICOLON"))
+					{
+						tokens.poll();
+						return new StatementSysoExp(exp);
+					}
+				}
+			}
+		}
+		else if(tokens.peek().getType().equals("ID"))
+		{
+			id = getIdentifier();
+			if(id == null)
+			{
+				System.out.println("Syntax Error on Identifier");
+				return null;
+			}
+			stmid = getStatementIdentifierDash();
+			if(stmid == null)
+			{
+				System.out.println("Syntax Error on StatementIdentifier");
+				return null;
+			}
+			return new StatementIdentifier(id,stmid);
+		}
+		return null;
+	}
+	
+	public StatementDash getStatementDash()
+	{
+		Statement stm;
+		if(tokens.peek().getType().equals("ELSE"))
+		{
+			tokens.poll();
+			stm = getStatement();
+			if(stm == null)
+			{
+				System.out.println("Syntax Error on Statement");
+				return null;
+			}
+			return new StatementDashElseStatement(stm);
+		}
+		else
+		{
+			return new StatementDashLamda();
+		}
+	}
+	
+	public StatementIdentifierDash getStatementIdentifierDash()
+	{
+		Expression exp1;
+		Expression exp2;
+		if(tokens.peek().getType().equals("EQUAL"))
+		{
+			tokens.poll();
+			exp1 = getExpression();
+			if(exp1 == null)
+			{
+				System.out.println("Syntax Error on Expression");
+				return null;
+			}
+			if(tokens.peek().getType().equals("SEMICOLON"))
+			{
+				tokens.poll();
+				return new StatementIdentifierDashEqExp(exp1);
+			}
+		}
+		else if(tokens.peek().getType().equals("LEFT_SQUARE_B"))
+		{
+			tokens.poll();
+			exp1 = getExpression();
+			if(exp1 == null)
+			{
+				System.out.println("Syntax Error on Expression");
+				return null;
+			}
+			if(tokens.peek().getType().equals("RIGHT_SQUARE_B"))
+			{
+				tokens.poll();
+				if(tokens.peek().getType().equals("EQUAL"))
+				{
+					tokens.poll();
+					exp2 = getExpression();
+					if(exp2 == null)
+					{
+						System.out.println("Syntax Error on Expression");
+						return null;
+					}
+					if(tokens.peek().getType().equals("SEMICOLON"))
+					{
+						tokens.poll();
+						return new StatementIdentifierDashSquareBracket(exp1,exp2);
+					}
+				}
+			}
+			
+		}
 		return null;
 	}
 	
