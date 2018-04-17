@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ConstructorDeclaration implements Root{
 	Identifier id;
 	String leftParanthesis;
-	ArrayList<TypeIdentifier> typeIDs;
+	MethodTypeIDs mtid=new MethodTypeIDs();
 	String rightParanthesis;
 	String leftCurly;
 	ArrayList<VarDeclaration> varr;
@@ -16,15 +16,15 @@ public class ConstructorDeclaration implements Root{
 	
 	public ConstructorDeclaration() {
 		this.id = null;
-		this.typeIDs = new ArrayList<TypeIdentifier>(0);
+		this.mtid = null;
 		this.varr = new ArrayList<VarDeclaration>(0);
 		this.stmt = new ArrayList<Statement>(0);
 	}
 
-	public ConstructorDeclaration(Identifier id,ArrayList<TypeIdentifier> typeIDs ,ArrayList<VarDeclaration> varr, ArrayList<Statement> stmt) {
+	public ConstructorDeclaration(Identifier id,MethodTypeIDs mtid,ArrayList<VarDeclaration> varr, ArrayList<Statement> stmt) {
 		this.id = id;
 		this.leftParanthesis = "(";
-		this.typeIDs =  typeIDs;
+		this.mtid =  mtid;
 		this.rightParanthesis = ")";
 		this.leftCurly = "{";
 		this.varr = varr;
@@ -33,17 +33,6 @@ public class ConstructorDeclaration implements Root{
 	}
 	@Override
 	public String getValue() {
-		
-		String types = "";
-		if(varr.size() == 1)types += typeIDs.get(0).getValue();
-		else
-		{
-			for(int i = 0  ; i < typeIDs.size() ; i++)
-			
-			{
-				types += varr.get(i).getValue()+",";
-			}
-		}
 		String vtemp = "";
 		if(varr.size() == 1)vtemp += varr.get(0).getValue();
 		else
@@ -64,7 +53,7 @@ public class ConstructorDeclaration implements Root{
 				sttemp += stmt.get(i).getValue()+",";
 			}
 		}
-		return id.getValue() + " " + leftParanthesis + types + rightParanthesis+leftCurly+ " \n" + vtemp+" \n"+sttemp+ "\n" + rightCurly;
+		return id.getValue() + " " + leftParanthesis + mtid.getValue() + rightParanthesis+leftCurly+ " \n" + vtemp+" \n"+sttemp+ "\n" + rightCurly;
 	}
 	
 	

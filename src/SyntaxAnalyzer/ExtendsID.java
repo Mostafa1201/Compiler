@@ -2,17 +2,18 @@ package SyntaxAnalyzer;
 
 public class ExtendsID implements Root{
 
-	String Extends = "extends";
+	String Extends;
 	Identifier id;
 
 	public ExtendsID() {
 		super();
+		this.Extends = "extends";
 		this.id = null;
 	}
 
-	public ExtendsID(String Extends,Identifier id) {
+	public ExtendsID(Identifier id) {
 		super();
-		this.Extends = Extends;
+		this.Extends = "extends";
 		this.id = id;
 	}
 

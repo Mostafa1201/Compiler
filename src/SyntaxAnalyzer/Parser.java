@@ -168,8 +168,279 @@ public class Parser {
 	
  	public ArrayList<ClassDeclaration> getClassDeclarations()
 	{
+ 		ArrayList<ClassDeclaration> var=new ArrayList<ClassDeclaration>(0);
+ 		ClassDeclaration cd=getClassDeclaration();
+		while(cd!=null){
+			var.add(cd);
+		}
+		return var;
+	}
+ 	public ClassDeclaration getClassDeclaration(){
+ 		Identifier id1 = new Identifier();
+ 		ExtendsID ed=new ExtendsID();
+		Identifier id2 = new Identifier();
+		ArrayList<VarDeclaration> vd=new <VarDeclaration> ArrayList(0);
+		ArrayList<ConstructorDeclaration> cd=new <ConstructorDeclaration> ArrayList(0);
+		ArrayList<MethodDeclaration> md=new <MethodDeclaration> ArrayList(0);
+		if(tokens.peek().getType().equals("CLASS"))
+		{
+			tokens.poll();
+			id1 = getIdentifier();
+			if(id1 == null)
+			{
+				System.out.println("Syntax Error on Identifier"+id1.getValue());
+				return null;
+			}
+			ed = getExtendsId();
+			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+			{
+				tokens.poll();
+				vd=getVarDeclarations();
+				if(vd == null)
+				{
+					System.out.println("Syntax Error on VarDeclaration");
+					return null;
+				}
+				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				{
+					tokens.poll();
+					cd=getConstructorDeclarations();
+					if(cd == null)
+					{
+						System.out.println("Syntax Error on ConstructorDeclaration");
+						return null;
+					}
+					md=getMethodDeclarations();
+					if(md == null)
+					{
+						System.out.println("Syntax Error on MethodDeclaration");
+						return null;
+					}
+					if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+					{
+						tokens.poll();
+						return new ClassDeclaration(id1,ed,vd,cd,md);
+					}
+					
+				}
+			}
+		}
+		return null;
+ 	}
+ 	public MethodTypeIDs getMethodTypeIds() {
+ 		TypeIdentifier tid=new TypeIdentifier();
+ 		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
+ 		tid=getTypeIdentifier();
+		if(tid == null)
+		{
+			System.out.println("Syntax Error on TypeIdentifier");
+			return null;
+		}
+		var=getTypeIdentifiers();
+		return new MethodTypeIDs(tid,var);
+	}
+ 	public ArrayList<MethodDeclaration> getMethodDeclarations() {
+ 		ArrayList<MethodDeclaration> var=new ArrayList<MethodDeclaration>(0);
+ 		MethodDeclaration md=getMethodDeclaration();
+		while(md!=null){
+			var.add(md);
+		}
+		return var;
+	}
+
+ 	public ArrayList<ConstructorDeclaration> getConstructorDeclarations() {
+		ArrayList<ConstructorDeclaration> var=new ArrayList<ConstructorDeclaration>(0);
+		ConstructorDeclaration cd=getConstructorDeclaration();
+		while(cd!=null){
+			var.add(cd);
+		}
+		return var;
+	}
+
+	public ArrayList<VarDeclaration> getVarDeclarations() {
+		ArrayList<VarDeclaration> var=new ArrayList<VarDeclaration>(0);
+		VarDeclaration vd=getVarDeclaration();
+		while(vd!=null){
+			var.add(vd);
+		}
+		return var;
+	}
+	public ArrayList<Statement> getStatements() {
+		ArrayList<Statement> var=new ArrayList<Statement>(0);
+		Statement s=getStatement();
+		while(s!=null){
+			var.add(s);
+		}
+		return var;
+	}
+
+	public ExtendsID getExtendsId() {
+		Identifier id=new Identifier();
+		if(tokens.peek().getType().equals("EXTENDS"))
+		{
+			tokens.poll();
+			id=getIdentifier();
+			if(id==null){
+				System.out.println("Syntax Error on identifier in extendid");
+				return null;
+			}
+			return new ExtendsID(id);
+		}
 		return null;
 	}
-	
+	public TypeIdentifier getTypeIdentifier() {
+		Type t;
+		Identifier id=new Identifier();
+		t=getType();
+		if(t==null){
+			System.out.println("Syntax Error on identifier in type");
+			return null;
+		}
+		id=getIdentifier();
+		if(id==null){
+			System.out.println("Syntax Error on identifier in identifier");
+			return null;
+		}
+		return new TypeIdentifier(t,id);
+	}
+	public ArrayList<TypeIdentifier> getTypeIdentifiers() {
+		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
+		TypeIdentifier td=getTypeIdentifier();
+		while(td!=null){
+			var.add(td);
+		}
+		return var;
+	}
+	public VarDeclaration getVarDeclaration(){
+ 		Type t;
+ 		Identifier id=new Identifier();
+ 		t = getType();
+		if(t == null)
+		{
+			System.out.println("Syntax Error on Type");
+			return null;
+		}
+		id = getIdentifier();
+		if(id == null)
+		{
+			System.out.println("Syntax Error on Identifier");
+			return null;
+		}
+		if(tokens.peek().getType().equals("SEMICOLON")){
+			tokens.poll();
+			return new VarDeclaration(t,id);
+		}
+		return null;
+ 	}
+ 	public ConstructorDeclaration getConstructorDeclaration(){
+ 		Identifier id=new Identifier();
+ 		MethodTypeIDs mt=new MethodTypeIDs();
+ 		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
+ 		ArrayList<Statement> s = new ArrayList<Statement>(0);
+ 		id = getIdentifier();
+		if(id == null)
+		{
+			System.out.println("Syntax Error on Identifier");
+			return null;
+		}
+		if(tokens.peek().getType().equals("LEFT_ROUND_B"))
+		{
+			tokens.poll();
+			mt=getMethodTypeIds();	//No need to check as it could be no typeid
+			if(tokens.peek().getType().equals("RIGHT_ROUND_B")){
+				tokens.poll();
+				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				{
+					tokens.poll();
+					vd=getVarDeclarations();
+					if(vd == null)
+					{
+						System.out.println("Syntax Error on VarDeclaration");
+						return null;
+					}
+					s=getStatements();
+					if(s == null)
+					{
+						System.out.println("Syntax Error on statements");
+						return null;
+					}
+					if(tokens.peek().getType().equals("Right_CURLY_B"))
+					{
+						tokens.poll();
+						return new ConstructorDeclaration(id,mt,vd,s);
+					}
+				}
+				
+			}
+			
+		}
+		return null;
+ 	}
+ 	public MethodDeclaration getMethodDeclaration(){
+ 		String ct;
+ 		TypeIdentifier typeID=new TypeIdentifier();
+ 		MethodTypeIDs mt=new MethodTypeIDs();
+ 		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
+ 		ArrayList<Statement> s = new ArrayList<Statement>(0);
+ 		Expression ex;
+ 		ct=tokens.peek().getType();
+ 		tokens.poll();
+ 		if(ct.equals("public")||ct.equals("protected")||ct.equals("private")){
+			typeID=getTypeIdentifier();
+			if(typeID==null){
+				System.out.println("Syntax Error on type identifier");
+				return null;
+			}
+			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+			{
+				tokens.poll();
+				mt=getMethodTypeIds();
+				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+				{
+					tokens.poll();
+					if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+					{
+						tokens.poll();
+						vd=getVarDeclarations();
+						if(vd == null)
+						{
+							System.out.println("Syntax Error on VarDeclaration");
+							return null;
+						}
+						s=getStatements();
+						if(s == null)
+						{
+							System.out.println("Syntax Error on statements");
+							return null;
+						}
+						if(tokens.peek().getType().equals("RETURN"))
+						{
+							tokens.poll();
+							ex = getExpression();
+							if(ex == null)
+							{
+								System.out.println("Syntax Error on Expression");
+								return null;
+							}
+							if(tokens.peek().getType().equals("SEMICOLON"))
+							{
+								tokens.poll();
+								if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+								{
+									tokens.poll();
+									return new MethodDeclaration(ct,typeID,mt,vd,s,ex);
+								}
+							}
+						}
+					}
+				}
+				
+			}
+ 		}
+ 		return null;
+ 	}
+ 	
+ 	
+ 	
 }
 	

@@ -5,10 +5,9 @@ import java.util.ArrayList;
 public class MethodDeclaration implements Root {
 
 	String classType;
-	Type funcType;
-	Identifier funcID;
+	TypeIdentifier tid;
 	String leftParanthesis;
-	ArrayList<MethodTypeIDs> typeIDs;
+	MethodTypeIDs typeIDs;
 	String rightParanthesis;
 	String leftCurly;
 	ArrayList<VarDeclaration> varr;
@@ -24,8 +23,7 @@ public class MethodDeclaration implements Root {
 	public MethodDeclaration() {
 		super();
 		this.classType = "";
-		this.funcType = null;
-		this.funcID = null;
+		this.tid = null;
 		this.typeIDs = null;
 		this.varr = null;
 		this.stmt = null;
@@ -35,12 +33,11 @@ public class MethodDeclaration implements Root {
 	
 
 
-	public MethodDeclaration(String classType, Type funcType, Identifier funcID,ArrayList<MethodTypeIDs> typeIDs,  ArrayList<VarDeclaration> varr,
+	public MethodDeclaration(String classType,TypeIdentifier tid,MethodTypeIDs typeIDs,  ArrayList<VarDeclaration> varr,
 			ArrayList<Statement> stmt,Expression exp) {
 		super();
 		this.classType = classType;
-		this.funcType = funcType;
-		this.funcID = funcID;
+		this.tid = tid;
 		this.leftParanthesis = "(";
 		this.typeIDs = typeIDs;
 		this.rightParanthesis = ")";
@@ -58,16 +55,6 @@ public class MethodDeclaration implements Root {
 
 	@Override
 	public String getValue() {
-		
-		String mtemp = "";
-		if(stmt.size() == 1)mtemp += typeIDs.get(0).getValue();
-		else
-		{
-			for(int i = 0 ; i < typeIDs.size() ; i++)
-			{
-				mtemp += typeIDs.get(i).getValue() + ",";
-			}
-		}
 		
 		String vtemp = "";
 		if(stmt.size() == 1)vtemp += varr.get(0).getValue();
@@ -88,7 +75,7 @@ public class MethodDeclaration implements Root {
 			}
 		}
 		
-		return "\t " + classType+" " + funcType.getValue() +" " + funcID.getValue()+  leftParanthesis + mtemp + rightParanthesis +leftCurly+"\n \t" + vtemp+" \t"+sttemp+" \t \t \t"+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;
+		return "\t " + classType+" " + tid.getValue()+  leftParanthesis + typeIDs.getValue() + rightParanthesis +leftCurly+"\n \t" + vtemp+" \t"+sttemp+" \t \t \t"+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;
 	}
 
 }
