@@ -1,5 +1,6 @@
 package LexicalAnalyzer;
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
@@ -9,7 +10,8 @@ import java.util.regex.Pattern;
 
 public class Tokenizer {
     static Map<Integer, Token> indexMap = new TreeMap<Integer, Token>();
-    static Queue<Token> tokensQueue;
+    
+    static Queue<Token> tokensQueue = new LinkedList<>();
     
     public Tokenizer(String fileName)
     {
@@ -1009,16 +1011,19 @@ public class Tokenizer {
         pattern = Pattern.compile(reg);
         matcher = pattern.matcher(input);
         while (matcher.find()) {
-            indexMap.put(matcher.start(), new Token("EOL", "End of line"));
+            //indexMap.put(matcher.start(), new Token("EOL", "End of line"));
             String fill = "";
             for (int i = matcher.start(); i < matcher.end(); i++)
                 fill += " ";
             input.replace(matcher.start(), matcher.end(), fill);
         }
         for (int i : indexMap.keySet()) {
-        		tokensQueue.offer(indexMap.get(i));
+        		System.out.println(indexMap.get(i).type);
+        		tokensQueue.add(indexMap.get(i));
         }  
-        
+		tokensQueue.add(new Token("EOF" , "EOF"));
+		System.out.println("EOF");
+
     }
 
     public static void print() {
@@ -1033,7 +1038,6 @@ public class Tokenizer {
             }
         }     
     }
-
 
     public static void output(final String msg , boolean clear) {
         if(clear){
@@ -1057,7 +1061,6 @@ public class Tokenizer {
             }
         }
     }
-
 
     public static void check() {
 

@@ -23,14 +23,14 @@ public class Goal implements Root{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		String str = "";
-		if(classDeclaration.size() == 1) str += classDeclaration.get(0).getValue();
-		else
+		if(classDeclaration!=null && classDeclaration.size() == 1) str += classDeclaration.get(0).getValue();
+		else if(classDeclaration!=null)
 		{
 			for(int i = 0 ; i < classDeclaration.size() ; i++)
 			{
 				str += classDeclaration.get(i).getValue() + ",";
 			}
 		}
-		return mainClass.getValue() + str + "\n" + EOF;
+		return mainClass.getValue() + str + "\n";
 	}
 }

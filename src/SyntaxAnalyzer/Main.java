@@ -1,4 +1,3 @@
-
 package SyntaxAnalyzer;
 
 import java.util.ArrayList;
@@ -6,12 +5,12 @@ import java.util.ArrayList;
 public class Main {
 	public static void main(String[] args){
 		Identifier idComputeFac = new Identifier("ComputeFac");
-		ArrayList<ManyExpressions> intLitExp = new ArrayList<ManyExpressions>();
-		intLitExp.add(new ManyExpressions(new ExpressionLiterals("10",new ExpressionDashLamda()) ,new ArrayList<AnotherExpression>()));
+		ManyExpressions intLitExp = new ManyExpressions(new ExpressionLiterals("10",new ExpressionDashLamda()) ,new ArrayList<Expression>());
 		ExpressionDotDashIdentifier expComputeFac = new ExpressionDotDashIdentifier(idComputeFac,intLitExp, new ExpressionDashLamda());
 		ExpressionDashDotExp expDot = new ExpressionDashDotExp(expComputeFac);
 		Identifier idFac = new Identifier("Fac");
-		ExpressionNewDashIdentifier expNewFac = new ExpressionNewDashIdentifier(idFac,new ArrayList<ManyExpressions>(),expDot);
+		ManyExpressions expss = new ManyExpressions(null,new ArrayList<Expression>());//
+		ExpressionNewDashIdentifier expNewFac = new ExpressionNewDashIdentifier(idFac,expss,expDot);
 		ExpressionNew sysoExp = new ExpressionNew(expNewFac);
 		StatementSysoExp mainStmt = new StatementSysoExp(sysoExp);
 		Identifier idClassName = new Identifier("Factorial");
@@ -27,9 +26,7 @@ public class Main {
 		VarDeclaration varDec = new VarDeclaration(funcType,num_aux);
 		varDeclarations.add(varDec);
 		TypeIdentifier typeID = new TypeIdentifier(funcType, num);
-		MethodTypeIDs parameter = new MethodTypeIDs(typeID, new ArrayList<TypeIdentifier>());
-		ArrayList<MethodTypeIDs> allParams = new ArrayList<MethodTypeIDs>();
-		allParams.add(parameter);
+		MethodTypeIDs parameters = new MethodTypeIDs(typeID, new ArrayList<TypeIdentifier>());
 		
 		ArrayList<Statement> stmts = new ArrayList<Statement>();
 		ExpressionLiterals expLiteral = new ExpressionLiterals("1",new ExpressionDashLamda());
@@ -38,13 +35,10 @@ public class Main {
 		StatementIdentifierDashEqExp stmtEq = new StatementIdentifierDashEqExp(expLiteral);
 		StatementIdentifier stmtIfID =  new StatementIdentifier(num_aux,stmtEq);
 		
-		
-		ArrayList<ManyExpressions> exps = new ArrayList<ManyExpressions>();
 		ExpressionDashOperators expMinus = new ExpressionDashOperators("-",new ExpressionIdentifier(new Identifier("1"),new ExpressionDashLamda()),new ExpressionDashLamda());
 		ExpressionIdentifier expIDMinus = new ExpressionIdentifier(num,expMinus);
-		ManyExpressions myExp = new ManyExpressions(expIDMinus, new ArrayList<AnotherExpression>());
-		exps.add(myExp);		
-		ExpressionDotDashIdentifier expDotDashID = new ExpressionDotDashIdentifier(idComputeFac,exps,new ExpressionDashLamda());
+		ManyExpressions myExp = new ManyExpressions(expIDMinus, new ArrayList<Expression>());
+		ExpressionDotDashIdentifier expDotDashID = new ExpressionDotDashIdentifier(idComputeFac,myExp,new ExpressionDashLamda());
 		ExpressionDashDotExp expDashDot = new ExpressionDashDotExp(expDotDashID);
 		ExpressionThis expThis = new ExpressionThis(expDashDot);
 		
@@ -56,11 +50,11 @@ public class Main {
 		StatementDashElseStatement elseStmt = new StatementDashElseStatement(stmtElseID);
 		StatementIfStatmentDash ifStmt = new StatementIfStatmentDash(expID,stmtIfID,elseStmt);
 		stmts.add(ifStmt);
-		ExpressionIdentifier returnExp = new ExpressionIdentifier(num, new ExpressionDashLamda());
-		MethodDeclaration methodPublicInt = new MethodDeclaration("public",funcType,idComputeFac,allParams,varDeclarations,stmts,returnExp);	
+		ExpressionIdentifier returnExp = new ExpressionIdentifier(num_aux, new ExpressionDashLamda());
+		MethodDeclaration methodPublicInt = new MethodDeclaration("public",new TypeIdentifier(funcType,idComputeFac),parameters,varDeclarations,stmts,returnExp);	
 		methodDeclarations.add(methodPublicInt);
 		
-		ExtendsID extID = new ExtendsID("",new Identifier());
+		ExtendsID extID = new ExtendsID(new Identifier());
 		classDeclarations.add(new ClassDeclaration(idFac,extID,new ArrayList<VarDeclaration>(),new ArrayList<ConstructorDeclaration>(),methodDeclarations));
 		Goal goal = new Goal(mainClass,classDeclarations);
 		System.out.println(goal.getValue());

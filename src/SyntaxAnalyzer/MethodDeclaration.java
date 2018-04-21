@@ -22,7 +22,7 @@ public class MethodDeclaration implements Root {
 
 	public MethodDeclaration() {
 		super();
-		this.classType = "";
+		this.classType = null;
 		this.tid = null;
 		this.typeIDs = null;
 		this.varr = null;
@@ -54,8 +54,7 @@ public class MethodDeclaration implements Root {
 
 
 	@Override
-	public String getValue() {
-		
+	public String getValue() {	
 		String vtemp = "";
 		if(stmt.size() == 1)vtemp += varr.get(0).getValue();
 		else
@@ -74,8 +73,7 @@ public class MethodDeclaration implements Root {
 				sttemp += stmt.get(i).getValue()+",";
 			}
 		}
-		
-		return "\t " + classType+" " + tid.getValue()+  leftParanthesis + typeIDs.getValue() + rightParanthesis +leftCurly+"\n \t" + vtemp+" \t"+sttemp+" \t \t \t"+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;
+		return "\t " + classType +" " + tid.getValue()+  leftParanthesis + typeIDs.getValue() + rightParanthesis +leftCurly+"\n \t" + vtemp+" \t"+sttemp+" \t \t \t"+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;
 	}
 
 }

@@ -20,6 +20,6 @@ public class ExpressionLiterals implements Expression{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return Literal + " " +  expDash.getValue();
+		return Literal + expDash.getValue();
 	}
 }

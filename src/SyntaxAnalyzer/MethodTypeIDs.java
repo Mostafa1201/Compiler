@@ -6,6 +6,7 @@ public class MethodTypeIDs implements Root{
 
 	TypeIdentifier typeID;
 	ArrayList<TypeIdentifier> typeIDs;
+	
 	public MethodTypeIDs() {
 		super();
 		this.typeID = null;
@@ -22,7 +23,7 @@ public class MethodTypeIDs implements Root{
 		String str = "";
 		for(int i = 0 ; i < typeIDs.size() ; i++)
 		{
-			str +=","+ typeIDs.get(i).getValue();
+			str += "," + typeIDs.get(i).getValue();
 		}
 		return typeID.getValue() + " " + str;
 	}

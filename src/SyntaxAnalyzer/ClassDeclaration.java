@@ -33,19 +33,32 @@ public class ClassDeclaration implements Root{
 	@Override
 	public String getValue() {
 		String vtemp = "";
-		for(int i = 0  ; i < varr.size() ; i++)
+		if(varr.size() == 1)  vtemp += varr.get(0).getValue();
+		else
 		{
-			vtemp += varr.get(i).getValue()+" ";
+			for(int i = 0  ; i < varr.size() ; i++)
+		
+			{
+				vtemp += varr.get(i).getValue()+" ";
+			}
 		}
 		String ctemp = "";
-		for(int i = 0  ; i < carr.size() ; i++)
+		if(carr.size() == 1)  ctemp += carr.get(0).getValue();
+		else
 		{
-			ctemp += carr.get(i).getValue()+" ";
+			for(int i = 0  ; i < carr.size() ; i++)
+			{
+				ctemp += carr.get(i).getValue()+" ";
+			}
 		}
 		String mtemp = "";
-		for(int i = 0  ; i < marr.size() ; i++)
+		if(marr.size() == 1)  mtemp += marr.get(0).getValue();
+		else
 		{
-			mtemp += marr.get(i).getValue()+" ";
+			for(int i = 0  ; i < marr.size() ; i++)
+			{
+				mtemp += marr.get(i).getValue()+" ";
+			}
 		}
 		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ " " + leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
 	}
