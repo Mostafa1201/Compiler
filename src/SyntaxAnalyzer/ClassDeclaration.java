@@ -27,6 +27,7 @@ public class ClassDeclaration implements Root{
 		this.carr = carr;
 		this.marr = marr;
 		this.rightCurly = "}";
+		//System.out.println(id.toString() + "*******************");
 	}
 		
 
@@ -60,6 +61,10 @@ public class ClassDeclaration implements Root{
 				mtemp += marr.get(i).getValue()+" ";
 			}
 		}
-		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ " " + leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+		if(extendsID!=null)
+		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+		else 
+			return ClasS+" " + id.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+
 	}
 }

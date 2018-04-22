@@ -29,6 +29,7 @@ public class ConstructorDeclaration implements Root{
 		this.varr = varr;
 		this.stmt = stmt;
 		this.rightCurly = "}";
+		System.out.println(id+"------------------");
 	}
 	
 	@Override
@@ -40,18 +41,22 @@ public class ConstructorDeclaration implements Root{
 			for(int i = 0  ; i < varr.size() ; i++)
 			
 			{
-				vtemp += varr.get(i).getValue()+",";
+				vtemp += varr.get(i).getValue();
 			}
 		}
 		String sttemp = "";
-		if(varr.size() == 1)sttemp += stmt.get(0).getValue();
+		if(stmt.size() == 1)sttemp += stmt.get(0).getValue();
 		else
 		{
 			for(int i = 0  ; i < stmt.size() ; i++)
 			{
-				sttemp += stmt.get(i).getValue()+",";
+				sttemp += stmt.get(i).getValue()+" ";
 			}
 		}
+		if(mtid!=null)
 		return id.getValue() + " " + leftParanthesis + mtid.getValue()  + rightParanthesis+leftCurly+ " \n" + vtemp+" \n"+sttemp+ "\n" + rightCurly;
+		else
+			return id.getValue() + " " + leftParanthesis + rightParanthesis+leftCurly+ " \n" + vtemp+" \n"+sttemp+ "\n" + rightCurly;
+
 	}
 }

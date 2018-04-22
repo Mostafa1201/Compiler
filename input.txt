@@ -1,9 +1,29 @@
-class Factorial{
-public static void main(String[] a){ System.out.println(new Fac(x , x).ComputeFac(10));
+class pop {
+public static void main(String[] a){
+if(num==0)x=x+1;
 }
 }
-class Fac {
-public  ComputeFac( num){
-return num_aux ;
+
+class prince {
+int y;
+int y;
+int y;
+prince(float g,int t){
+	int z;
+	int z;
+	int z;
+	{
+	if(x==3)x=4;
+	}
+}
+private int zoma(String a){
+int y;
+int y;
+int y;
+
+{
+if(x==5)x=x+1;
+}
+return x;
 }
 }

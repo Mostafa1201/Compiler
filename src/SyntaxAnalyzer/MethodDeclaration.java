@@ -56,12 +56,12 @@ public class MethodDeclaration implements Root {
 	@Override
 	public String getValue() {	
 		String vtemp = "";
-		if(stmt.size() == 1)vtemp += varr.get(0).getValue();
+		if(varr.size() == 1)vtemp += varr.get(0).getValue();
 		else
 		{
 			for(int i = 0  ; i < varr.size() ; i++)
 			{
-				vtemp += varr.get(i).getValue()+",";
+				vtemp += varr.get(i).getValue();
 			}
 		}
 		
@@ -70,7 +70,7 @@ public class MethodDeclaration implements Root {
 		else{
 			for(int i = 0  ; i < stmt.size() ; i++)	
 			{
-				sttemp += stmt.get(i).getValue()+",";
+				sttemp += stmt.get(i).getValue()+" ";
 			}
 		}
 		return "\t " + classType +" " + tid.getValue()+  leftParanthesis + typeIDs.getValue() + rightParanthesis +leftCurly+"\n \t" + vtemp+" \t"+sttemp+" \t \t \t"+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;

@@ -49,7 +49,8 @@ public class Parser {
 					System.out.println("Syntax Error on Identifier");
 					return null;
 				}
-				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				if(!tokens.peek().getType().equals("LEFT_CURLY_B")){System.out.println("Syntax Error on left curly bracits{");return null;}
+				else if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 				{
 					tokens.poll();
 					if(tokens.peek().getType().equals("PUBLIC"))
@@ -125,8 +126,10 @@ public class Parser {
 	{
  		ArrayList<ClassDeclaration> var=new ArrayList<ClassDeclaration>(0);
  		ClassDeclaration cd=getClassDeclaration();
+ 		//System.out.println(cd.id + "--------------");
 		while(cd!=null){
 			var.add(cd);
+			cd=getClassDeclaration();
 		}
 		return var;
 	}
@@ -157,9 +160,9 @@ public class Parser {
 					System.out.println("Syntax Error on VarDeclaration");
 					return null;
 				}
-				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
-				{
-					tokens.poll();
+				//if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				//{
+				//tokens.poll();
 					cd=getConstructorDeclarations();
 					if(cd == null)
 					{
@@ -178,7 +181,7 @@ public class Parser {
 						return new ClassDeclaration(id1,ed,vd,cd,md);
 					}
 					
-				}
+				//}
 			}
 		}
 		return null;
@@ -190,7 +193,7 @@ public class Parser {
  		tid=getTypeIdentifier();
 		if(tid == null)
 		{
-			System.out.println("Syntax Error on TypeIdentifier");
+			//System.out.println("Syntax Error on TypeIdentifier");
 			return null;
 		}
 		var=getTypeIdentifiers();
@@ -202,6 +205,7 @@ public class Parser {
  		MethodDeclaration md=getMethodDeclaration();
 		while(md!=null){
 			var.add(md);
+			md=getMethodDeclaration();
 		}
 		return var;
 	}
@@ -211,6 +215,7 @@ public class Parser {
 		ConstructorDeclaration cd=getConstructorDeclaration();
 		while(cd!=null){
 			var.add(cd);
+			cd=getConstructorDeclaration();
 		}
 		return var;
 	}
@@ -220,6 +225,7 @@ public class Parser {
 		VarDeclaration vd=getVarDeclaration();
 		while(vd!=null){
 			var.add(vd);
+			vd=getVarDeclaration();
 		}
 		return var;
 	}
@@ -229,6 +235,7 @@ public class Parser {
 		Statement s=getStatement();
 		while(s!=null){
 			var.add(s);
+			s=getStatement();
 		}
 		return var;
 	}
@@ -253,7 +260,7 @@ public class Parser {
 		Identifier id=new Identifier();
 		t=getType();
 		if(t==null){
-			System.out.println("Syntax Error on identifier in type");
+			//System.out.println("Syntax Error on identifier in type");
 			return null;
 		}
 		id=getIdentifier();
@@ -266,9 +273,18 @@ public class Parser {
 	
 	public ArrayList<TypeIdentifier> getTypeIdentifiers() {
 		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
+		if(tokens.peek().getType().equals("COMMA")){
+			tokens.poll();
 		TypeIdentifier td=getTypeIdentifier();
 		while(td!=null){
 			var.add(td);
+			if(tokens.peek().getType().equals("COMMA")){
+				tokens.poll();
+				//System.out.println("tany wa8d");
+			 td=getTypeIdentifier();
+			}
+			else break;
+		}
 		}
 		return var;
 	}
@@ -277,9 +293,10 @@ public class Parser {
  		Type t;
  		Identifier id=new Identifier();
  		t = getType();
+ 		boolean check = false;
 		if(t == null)
 		{
-			System.out.println("Syntax Error on TypeVarDeclaration");
+			//System.out.println("Syntax Error on TypeVarDeclaration");
 			return null;
 		}
 		id = getIdentifier();
@@ -292,6 +309,9 @@ public class Parser {
 			tokens.poll();
 			return new VarDeclaration(t,id);
 		}
+		else check=true;
+
+		if(check){System.out.println("Syntax Error on VarDeclaration");}
 		return null;
  	}
  	
@@ -303,7 +323,7 @@ public class Parser {
  		id = getIdentifier();
 		if(id == null)
 		{
-			System.out.println("Syntax Error on Identifier");
+			//System.out.println("Syntax Error on Identifier");
 			return null;
 		}
 		if(tokens.peek().getType().equals("LEFT_ROUND_B"))
@@ -316,18 +336,18 @@ public class Parser {
 				{
 					tokens.poll();
 					vd=getVarDeclarations();
-					if(vd == null)
+					/*if(vd.size() == 0)
 					{
 						System.out.println("Syntax Error on VarDeclaration");
 						return null;
-					}
+					}*/
 					s=getStatements();
-					if(s == null)
+					/*if(s == null)
 					{
 						System.out.println("Syntax Error on statements");
 						return null;
-					}
-					if(tokens.peek().getType().equals("Right_CURLY_B"))
+					}*/
+					if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
 					{
 						tokens.poll();
 						return new ConstructorDeclaration(id,mt,vd,s);
@@ -347,19 +367,20 @@ public class Parser {
  		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
  		ArrayList<Statement> s = new ArrayList<Statement>(0);
  		Expression ex;
- 		ct=tokens.peek().getType();
- 		tokens.poll();
- 		if(ct.equals("public")||ct.equals("protected")||ct.equals("private")){
-			typeID=getTypeIdentifier();
+		ct=tokens.peek().getType();
+ 		if(ct.equals("PUBLIC")||ct.equals("PROTECTED")||ct.equals("PRIVATE")){
+ 			ct=tokens.peek().getValue();
+ 	 		tokens.poll();
+ 			typeID=getTypeIdentifier();
 			if(typeID==null){
 				System.out.println("Syntax Error on type identifier");
 				return null;
 			}
-			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+			if(tokens.peek().getType().equals("LEFT_ROUND_B"))
 			{
 				tokens.poll();
 				mt=getMethodTypeIds();
-				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+				if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
 				{
 					tokens.poll();
 					if(tokens.peek().getType().equals("LEFT_CURLY_B"))
@@ -549,7 +570,7 @@ public class Parser {
 	{
 		Expression exp1;
 		Expression exp2;
-		if(tokens.peek().getType().equals("EQUAL"))
+		if(tokens.peek().getType().equals("ASSIGNMENT"))
 		{
 			tokens.poll();
 			exp1 = getExpression();
@@ -576,7 +597,7 @@ public class Parser {
 			if(tokens.peek().getType().equals("RIGHT_SQUARE_B"))
 			{
 				tokens.poll();
-				if(tokens.peek().getType().equals("EQUAL"))
+				if(tokens.peek().getType().equals("ASSIGNMENT"))
 				{
 					tokens.poll();
 					exp2 = getExpression();
@@ -887,8 +908,9 @@ public class Parser {
 	public ExpressionDotDash getExpressionDotDash()
 	{
 		ExpressionDash expDash;
-		if(tokens.peek().getValue().equals("LENGTH"))
+		if(tokens.peek().getType().equals("LENGTH"))
 		{
+			
 			tokens.poll();
 			expDash = getExpressionDash();
 			if(expDash == null)
@@ -981,7 +1003,14 @@ public class Parser {
 	{
 		Parser p = new Parser("input.txt");
 		Goal root = p.parse();
+		if(root!=null)
 		System.out.println(root.getValue());
 	}
+
+
+
+
+
+
 
 }
