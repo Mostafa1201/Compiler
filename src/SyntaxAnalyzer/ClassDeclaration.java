@@ -61,10 +61,16 @@ public class ClassDeclaration implements Root{
 				mtemp += marr.get(i).getValue()+" ";
 			}
 		}
-		if(extendsID!=null)
+		if(extendsID!=null){
+			if(extendsID.getValue().contains("false")){
+				return ClasS+" " + id.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+			}
 		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
-		else 
-			return ClasS+" " + id.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+		}
+		else{
+			return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+		}
+		
 
 	}
 }

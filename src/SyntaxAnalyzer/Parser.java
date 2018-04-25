@@ -49,7 +49,7 @@ public class Parser {
 					System.out.println("Syntax Error on Identifier");
 					return null;
 				}
-				if(!tokens.peek().getType().equals("LEFT_CURLY_B")){System.out.println("Syntax Error on left curly bracits{");return null;}
+				if(!tokens.peek().getType().equals("LEFT_CURLY_B")){System.out.println("Syntax Error on left curly bracket{");return null;}
 				else if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 				{
 					tokens.poll();
@@ -105,18 +105,55 @@ public class Parser {
 																		return new MainClass(id1,id2,stm);
 																	}
 																}
+																else{
+																	System.out.println("Syntax Error on right curly bracket");
+																}
+															}
+															else{
+																System.out.println("Syntax Error on left curly bracket");
 															}
 														}
+														else{
+															System.out.println("Syntax Error on right round bracket");
+														}
+												}
+												else{
+													System.out.println("Syntax Error on right square bracket ]");
 												}
 											}
+											else{
+												System.out.println("Syntax Error on left square bracket [");
+											}
+										}
+										else{
+											System.out.println("Syntax Error on String keyword");
 										}
 									}
+									else{
+										System.out.println("Syntax Error on left round bracket");
+									}
+									
+								}
+								else{
+									System.out.println("cannot find main keyword");
 								}
 							}
+							else{
+								System.out.println("main must be void");
+							}
 						}
+						else{
+							System.out.println("main must be static");
+						}
+					}
+					else{
+						System.out.println("main must be public");
 					}
 				}
 			}
+		}
+		else{
+			System.out.println("cannot find class keyword");
 		}
 		
 		return null;
@@ -141,7 +178,11 @@ public class Parser {
 		ArrayList<VarDeclaration> vd=new <VarDeclaration> ArrayList(0);
 		ArrayList<ConstructorDeclaration> cd=new <ConstructorDeclaration> ArrayList(0);
 		ArrayList<MethodDeclaration> md=new <MethodDeclaration> ArrayList(0);
-		if(tokens.peek().getType().equals("CLASS"))
+		if(!tokens.peek().getType().equals("CLASS")){
+			System.out.println("cannot find class keyword in class declaration");
+			return null;
+		}
+		else
 		{
 			tokens.poll();
 			id1 = getIdentifier();
@@ -151,39 +192,34 @@ public class Parser {
 				return null;
 			}
 			ed = getExtendsId();
+			if(ed==null){
+				return null;
+			}
 			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 			{
 				tokens.poll();
 				vd=getVarDeclarations();
-				if(vd == null)
-				{
-					System.out.println("Syntax Error on VarDeclaration");
-					return null;
-				}
-				//if(tokens.peek().getType().equals("LEFT_CURLY_B"))
-				//{
-				//tokens.poll();
-					cd=getConstructorDeclarations();
-					if(cd == null)
-					{
-						System.out.println("Syntax Error on ConstructorDeclaration");
-						return null;
-					}
-					md=getMethodDeclarations();
-					if(md == null)
-					{
-						System.out.println("Syntax Error on MethodDeclaration");
-						return null;
-					}
-					if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+				
+				cd=getConstructorDeclarations();
+					
+				md=getMethodDeclarations();
+					
+				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
 					{
 						tokens.poll();
 						return new ClassDeclaration(id1,ed,vd,cd,md);
 					}
+					else{
+						System.out.println("Syntax Error on right curly bracket");
+					}
 					
 				//}
 			}
+			else{
+				System.out.println("Syntax Error on left curly bracket");
+			}
 		}
+		
 		return null;
  	}
  	
@@ -252,7 +288,8 @@ public class Parser {
 			}
 			return new ExtendsID(id);
 		}
-		return null;
+		id.id="false";
+		return new ExtendsID(id);
 	}
 	
 	public TypeIdentifier getTypeIdentifier() {
@@ -276,12 +313,18 @@ public class Parser {
 		if(tokens.peek().getType().equals("COMMA")){
 			tokens.poll();
 		TypeIdentifier td=getTypeIdentifier();
+		if(td==null){
+			System.out.println("Syntax error in type identifier after comma ");
+		}
 		while(td!=null){
+			
 			var.add(td);
 			if(tokens.peek().getType().equals("COMMA")){
 				tokens.poll();
-				//System.out.println("tany wa8d");
 			 td=getTypeIdentifier();
+			 if(td==null){
+					System.out.println("Syntax error in type identifier after comma ");
+				}
 			}
 			else break;
 		}
