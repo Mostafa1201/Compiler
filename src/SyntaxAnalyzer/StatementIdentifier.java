@@ -23,7 +23,7 @@ public class StatementIdentifier implements Statement{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return id.getValue() + " " + stmtID.getValue();
+		return " \t" + id.getValue() + " " + stmtID.getValue();
 	}
 }
 

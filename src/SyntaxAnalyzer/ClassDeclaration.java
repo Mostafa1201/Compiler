@@ -29,7 +29,6 @@ public class ClassDeclaration implements Root{
 		this.rightCurly = "}";
 	}
 		
-
 	@Override
 	public String getValue() {
 		String vtemp = "";
@@ -37,7 +36,6 @@ public class ClassDeclaration implements Root{
 		else
 		{
 			for(int i = 0  ; i < varr.size() ; i++)
-		
 			{
 				vtemp += varr.get(i).getValue()+" ";
 			}
@@ -60,6 +58,14 @@ public class ClassDeclaration implements Root{
 				mtemp += marr.get(i).getValue()+" ";
 			}
 		}
-		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ " " + leftCurly + "\n" + vtemp+ctemp+  mtemp+ " \n " +rightCurly;
+		if(extendsID!=null){
+			if(extendsID.getValue().contains("false")){
+				return ClasS+" " + id.getValue()+ leftCurly + "\n" + vtemp+ctemp+ " \n" + mtemp+ " \n " +rightCurly;
+			}
+		return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ leftCurly + "\n" + vtemp+ctemp+ "\n" +mtemp+ " \n " +rightCurly;
+		}
+		else{
+			return ClasS+" " + id.getValue()+" " + extendsID.getValue()+ leftCurly + "\n" + vtemp+ctemp+ " \n" +  mtemp+ " \n " +rightCurly;
+		}
 	}
 }

@@ -21,7 +21,7 @@ public class ExpressionNot implements Expression{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return "Not " + exp.getValue() + " " + expDash.getValue();
+		return "! " + exp.getValue() + " " + expDash.getValue();
 	}	
 	
 }

@@ -22,9 +22,9 @@ public class StatementOrMore implements Statement{
 		String str = "";
 		for(int i = 0  ; i < statments.size() ; i++)
 		{
-			str += statments.get(i).getValue()+" ";
+			str += statments.get(i).getValue()+"\n";
 		}
-		return "{ \n" + str + "\n }";
+		return "{ \n" + str + "\t}";
 	}
 	
 }

@@ -19,6 +19,7 @@ public class ExpressionBoolean implements Expression{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
+		if(expDash.getValue() == null) return bool;
 		return bool + " " + expDash.getValue();
 	}
 }

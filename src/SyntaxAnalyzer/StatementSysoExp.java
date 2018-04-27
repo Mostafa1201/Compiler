@@ -15,6 +15,6 @@ public class StatementSysoExp implements Statement{
 
 	@Override
 	public String getValue() {
-		return "System.out.println(" + expression.getValue() + ") ;";
+		return "\t System.out.println(" + expression.getValue() + ") ;";
 	}
 }

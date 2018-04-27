@@ -27,6 +27,7 @@ public class ExpressionDashOperators implements ExpressionDash{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
+		if(expDash.getValue() == null) return operator + " " + exp.getValue();
 		return operator + " " + exp.getValue() + " " + expDash.getValue();
 	}
 	

@@ -22,18 +22,18 @@ public class Parser {
 	
 	public Goal getGoal()
 	{
-		MainClass mainClass = getMain();
+		MainClass mainClass = getMainClass();
 		if(mainClass != null)
 		{
 			if(!tokens.peek().getType().equals("EOF")){
-			ArrayList<ClassDeclaration> classDeclarations = getClassDeclarations();
-			return new Goal(mainClass,classDeclarations);}
+				ArrayList<ClassDeclaration> classDeclarations = getClassDeclarations();
+				return new Goal(mainClass,classDeclarations);}
 			else return new Goal(mainClass,null);
 		}
 		return null;
 	}
 	
-	public MainClass getMain()
+	public MainClass getMainClass()
 	{
 		Identifier id1 = new Identifier();
 		Identifier id2 = new Identifier();
@@ -46,10 +46,15 @@ public class Parser {
 				id1 = getIdentifier();
 				if(id1 == null)
 				{
-					System.out.println("Syntax Error on Identifier");
+					System.out.println("Syntax Error on Identifier " + id1.getValue() + " in Main Class");
 					return null;
 				}
-				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				if(!tokens.peek().getType().equals("LEFT_CURLY_B"))
+				{
+					System.out.println("Syntax Error on Left Curly Bracket '{' in Main Class");
+					return null;
+				}
+				else if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 				{
 					tokens.poll();
 					if(tokens.peek().getType().equals("PUBLIC"))
@@ -79,7 +84,7 @@ public class Parser {
 														id2 = getIdentifier();
 														if(id2 == null)
 														{
-															System.out.println("Syntax Error on Identifier");
+															System.out.println("Syntax Error on Identifier" + id2.getValue() + "In Main Class");
 															return null;
 														}
 														if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
@@ -103,21 +108,61 @@ public class Parser {
 																		tokens.poll();
 																		return new MainClass(id1,id2,stm);
 																	}
+																	else{
+																		System.out.println("Syntax Error on right curly bracket '}' in Main Class");
+																	}
+																}
+																else{
+																	System.out.println("Syntax Error on right curly bracket '}' in Main Class");
 																}
 															}
+															else{
+																System.out.println("Syntax Error on left curly bracket '{' in Main Class");
+															}
+														}
+														else{
+															System.out.println("Syntax Error on right round bracket ')' in Main Class");
 														}
 												}
+												else{
+													System.out.println("Syntax Error on right square bracket ']' in Main Class");
+												}
+											}
+											else{
+												System.out.println("Syntax Error on left square bracket '[' in Main Class");
 											}
 										}
+										else{
+											System.out.println("Syntax Error on 'String' keyword in Main Class");
+										}
+									}
+									else{
+										System.out.println("Syntax Error on left round bracket '(' in Main Class");
 									}
 								}
+								else{
+									System.out.println("cannot find 'main' keyword in Main Class");
+								}
+							}
+							else{
+								System.out.println("main must be 'void' in Main Class");
 							}
 						}
+						else{
+							System.out.println("main must be 'static' in Main Class");
+						}
+					}
+					else{
+						System.out.println("main must be 'public' in Main Class");
 					}
 				}
 			}
 		}
-		
+		else
+		{
+			System.out.println("Cannot find 'class' Keyword in Class Declaration");
+			return null;
+		}
 		return null;
 	}
 	
@@ -127,6 +172,7 @@ public class Parser {
  		ClassDeclaration cd=getClassDeclaration();
 		while(cd!=null){
 			var.add(cd);
+			cd=getClassDeclaration();
 		}
 		return var;
 	}
@@ -144,202 +190,48 @@ public class Parser {
 			id1 = getIdentifier();
 			if(id1 == null)
 			{
-				System.out.println("Syntax Error on Identifier"+id1.getValue());
+				System.out.println("Syntax Error on Identifier "+id1.getValue()+ " in Class Declaration");
 				return null;
 			}
 			ed = getExtendsId();
-			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+			if(ed==null){
+				return null;
+			}
+		 	if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 			{
 				tokens.poll();
 				vd=getVarDeclarations();
-				if(vd == null)
+				
+				cd=getConstructorDeclarations();
+					
+				md=getMethodDeclarations();
+				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
 				{
-					System.out.println("Syntax Error on VarDeclaration");
-					return null;
-				}
-				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
-				{
-					tokens.poll();
-					cd=getConstructorDeclarations();
-					if(cd == null)
-					{
-						System.out.println("Syntax Error on ConstructorDeclaration");
-						return null;
-					}
-					md=getMethodDeclarations();
-					if(md == null)
-					{
-						System.out.println("Syntax Error on MethodDeclaration");
-						return null;
-					}
-					if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
-					{
 						tokens.poll();
 						return new ClassDeclaration(id1,ed,vd,cd,md);
-					}
-					
 				}
+				else
+				{
+						System.out.println("Syntax Error on right curly bracket '}' in Class Declaration");
+				}	
+			}
+			else{
+				System.out.println("Syntax Error on left curly bracket '{' in Class Declaration");
 			}
 		}
 		return null;
  	}
- 	
-	public MethodTypeIDs getMethodTypeIds() {
- 		TypeIdentifier tid=new TypeIdentifier();
- 		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
- 		tid=getTypeIdentifier();
-		if(tid == null)
-		{
-			System.out.println("Syntax Error on TypeIdentifier");
-			return null;
-		}
-		var=getTypeIdentifiers();
-		return new MethodTypeIDs(tid,var);
-	}
- 	
+ 	 	
 	public ArrayList<MethodDeclaration> getMethodDeclarations() {
  		ArrayList<MethodDeclaration> var=new ArrayList<MethodDeclaration>(0);
  		MethodDeclaration md=getMethodDeclaration();
 		while(md!=null){
 			var.add(md);
+			md=getMethodDeclaration();
 		}
 		return var;
 	}
 
- 	public ArrayList<ConstructorDeclaration> getConstructorDeclarations() {
-		ArrayList<ConstructorDeclaration> var=new ArrayList<ConstructorDeclaration>(0);
-		ConstructorDeclaration cd=getConstructorDeclaration();
-		while(cd!=null){
-			var.add(cd);
-		}
-		return var;
-	}
-
-	public ArrayList<VarDeclaration> getVarDeclarations() {
-		ArrayList<VarDeclaration> var=new ArrayList<VarDeclaration>(0);
-		VarDeclaration vd=getVarDeclaration();
-		while(vd!=null){
-			var.add(vd);
-		}
-		return var;
-	}
-	
-	public ArrayList<Statement> getStatements() {
-		ArrayList<Statement> var=new ArrayList<Statement>(0);
-		Statement s=getStatement();
-		while(s!=null){
-			var.add(s);
-		}
-		return var;
-	}
-
-	public ExtendsID getExtendsId() {
-		Identifier id=new Identifier();
-		if(tokens.peek().getType().equals("EXTENDS"))
-		{
-			tokens.poll();
-			id=getIdentifier();
-			if(id==null){
-				System.out.println("Syntax Error on identifier in extendid");
-				return null;
-			}
-			return new ExtendsID(id);
-		}
-		return null;
-	}
-	
-	public TypeIdentifier getTypeIdentifier() {
-		Type t;
-		Identifier id=new Identifier();
-		t=getType();
-		if(t==null){
-			System.out.println("Syntax Error on identifier in type");
-			return null;
-		}
-		id=getIdentifier();
-		if(id==null){
-			System.out.println("Syntax Error on identifier in identifier");
-			return null;
-		}
-		return new TypeIdentifier(t,id);
-	}
-	
-	public ArrayList<TypeIdentifier> getTypeIdentifiers() {
-		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
-		TypeIdentifier td=getTypeIdentifier();
-		while(td!=null){
-			var.add(td);
-		}
-		return var;
-	}
-	
-	public VarDeclaration getVarDeclaration(){
- 		Type t;
- 		Identifier id=new Identifier();
- 		t = getType();
-		if(t == null)
-		{
-			System.out.println("Syntax Error on TypeVarDeclaration");
-			return null;
-		}
-		id = getIdentifier();
-		if(id == null)
-		{
-			System.out.println("Syntax Error on IdentifierVarDeclaration");
-			return null;
-		}
-		if(tokens.peek().getType().equals("SEMICOLON")){
-			tokens.poll();
-			return new VarDeclaration(t,id);
-		}
-		return null;
- 	}
- 	
-	public ConstructorDeclaration getConstructorDeclaration(){
- 		Identifier id=new Identifier();
- 		MethodTypeIDs mt=new MethodTypeIDs();
- 		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
- 		ArrayList<Statement> s = new ArrayList<Statement>(0);
- 		id = getIdentifier();
-		if(id == null)
-		{
-			System.out.println("Syntax Error on Identifier");
-			return null;
-		}
-		if(tokens.peek().getType().equals("LEFT_ROUND_B"))
-		{
-			tokens.poll();
-			mt=getMethodTypeIds();	//No need to check as it could be no typeid
-			if(tokens.peek().getType().equals("RIGHT_ROUND_B")){
-				tokens.poll();
-				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
-				{
-					tokens.poll();
-					vd=getVarDeclarations();
-					if(vd == null)
-					{
-						System.out.println("Syntax Error on VarDeclaration");
-						return null;
-					}
-					s=getStatements();
-					if(s == null)
-					{
-						System.out.println("Syntax Error on statements");
-						return null;
-					}
-					if(tokens.peek().getType().equals("Right_CURLY_B"))
-					{
-						tokens.poll();
-						return new ConstructorDeclaration(id,mt,vd,s);
-					}
-				}
-				
-			}
-			
-		}
-		return null;
- 	}
- 	
 	public MethodDeclaration getMethodDeclaration(){
  		String ct;
  		TypeIdentifier typeID=new TypeIdentifier();
@@ -347,19 +239,20 @@ public class Parser {
  		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
  		ArrayList<Statement> s = new ArrayList<Statement>(0);
  		Expression ex;
- 		ct=tokens.peek().getType();
- 		tokens.poll();
- 		if(ct.equals("public")||ct.equals("protected")||ct.equals("private")){
-			typeID=getTypeIdentifier();
+		ct=tokens.peek().getType();
+ 		if(ct.equals("PUBLIC")||ct.equals("PROTECTED")||ct.equals("PRIVATE")){
+ 			ct=tokens.peek().getValue();
+ 	 		tokens.poll();
+ 			typeID=getTypeIdentifier();
 			if(typeID==null){
-				System.out.println("Syntax Error on type identifier");
+				System.out.println("Syntax Error on Type Identifier in Method Declaration");
 				return null;
 			}
-			if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+			if(tokens.peek().getType().equals("LEFT_ROUND_B"))
 			{
 				tokens.poll();
 				mt=getMethodTypeIds();
-				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+				if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
 				{
 					tokens.poll();
 					if(tokens.peek().getType().equals("LEFT_CURLY_B"))
@@ -368,7 +261,7 @@ public class Parser {
 						vd=getVarDeclarations();
 						if(vd == null)
 						{
-							System.out.println("Syntax Error on VarDeclaration");
+							System.out.println("Syntax Error on VarDeclaration in Method Declaration");
 							return null;
 						}
 						s=getStatements();
@@ -383,7 +276,7 @@ public class Parser {
 							ex = getExpression();
 							if(ex == null)
 							{
-								System.out.println("Syntax Error on ExpressionofMethodDeclaration");
+								System.out.println("Syntax Error on ExpressionofMethodDeclaration in Method Declaration");
 								return null;
 							}
 							if(tokens.peek().getType().equals("SEMICOLON"))
@@ -403,7 +296,177 @@ public class Parser {
  		}
  		return null;
  	}
+
+	public MethodTypeIDs getMethodTypeIds() {
+ 		TypeIdentifier tid=new TypeIdentifier();
+ 		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
+ 		tid=getTypeIdentifier();
+		if(tid == null)
+		{
+			//System.out.println("Syntax Error on TypeIdentifier");
+			return null;
+		}
+		var=getTypeIdentifiers();
+		return new MethodTypeIDs(tid,var);
+	}
 	
+ 	public ArrayList<ConstructorDeclaration> getConstructorDeclarations() {
+		ArrayList<ConstructorDeclaration> var=new ArrayList<ConstructorDeclaration>(0);
+		ConstructorDeclaration cd=getConstructorDeclaration();
+		while(cd!=null){
+			var.add(cd);
+			cd=getConstructorDeclaration();
+		}
+		return var;
+	}
+ 
+ 	public ConstructorDeclaration getConstructorDeclaration(){
+ 		Identifier id=new Identifier();
+ 		MethodTypeIDs mt=new MethodTypeIDs();
+ 		ArrayList<VarDeclaration> vd = new ArrayList<VarDeclaration>(0);
+ 		ArrayList<Statement> s = new ArrayList<Statement>(0);
+ 		id = getIdentifier();
+		if(id == null)
+		{
+			//System.out.println("Syntax Error on Identifier");
+			return null;
+		}
+		if(tokens.peek().getType().equals("LEFT_ROUND_B"))
+		{
+			tokens.poll();
+			mt=getMethodTypeIds();	//No need to check as it could be no typeid
+			if(tokens.peek().getType().equals("RIGHT_ROUND_B")){
+				tokens.poll();
+				if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+				{
+					tokens.poll();
+					vd=getVarDeclarations();
+					/*if(vd.size() == 0)
+					{
+						System.out.println("Syntax Error on VarDeclaration");
+						return null;
+					}*/
+					s=getStatements();
+					/*if(s == null)
+					{
+						System.out.println("Syntax Error on statements");
+						return null;
+					}*/
+					if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
+					{
+						tokens.poll();
+						return new ConstructorDeclaration(id,mt,vd,s);
+					}
+				}
+				
+			}
+			
+		}
+		return null;
+ 	}
+
+	public ArrayList<VarDeclaration> getVarDeclarations() {
+		ArrayList<VarDeclaration> var=new ArrayList<VarDeclaration>(0);
+		VarDeclaration vd=getVarDeclaration();
+		while(vd!=null){
+			var.add(vd);
+			vd=getVarDeclaration();
+		}
+		return var;
+	}
+	
+	public VarDeclaration getVarDeclaration(){
+ 		Type t;
+ 		Identifier id=new Identifier();
+ 		t = getType();
+ 		boolean check = false;
+		if(t == null)
+		{
+			//System.out.println("Syntax Error on TypeVarDeclaration");
+			return null;
+		}
+		id = getIdentifier();
+		if(id == null)
+		{
+			System.out.println("Syntax Error on IdentifierVarDeclaration " + id + " in Var Declaration");
+			return null;
+		}
+		if(tokens.peek().getType().equals("SEMICOLON")){
+			tokens.poll();
+			return new VarDeclaration(t,id);
+		}
+		else check=true;
+
+		if(check){System.out.println("Syntax Error on VarDeclaration");}
+		return null;
+ 	}
+	
+	public ArrayList<Statement> getStatements() {
+		ArrayList<Statement> var=new ArrayList<Statement>(0);
+		Statement s=getStatement();
+		while(s!=null){
+			var.add(s);
+			s=getStatement();
+		}
+		return var;
+	}
+
+	public ExtendsID getExtendsId() {
+		Identifier id=new Identifier();
+		if(tokens.peek().getType().equals("EXTENDS"))
+		{
+			tokens.poll();
+			id=getIdentifier();
+			if(id==null){
+				System.out.println("Syntax Error on Identifier" + id.getValue() + "in ExtendsID");
+				return null;
+			}
+			return new ExtendsID(id);
+		}
+		id.id="false";
+		return new ExtendsID(id);
+	}
+	
+	public ArrayList<TypeIdentifier> getTypeIdentifiers() {
+		ArrayList<TypeIdentifier> var=new ArrayList<TypeIdentifier>(0);
+		if(tokens.peek().getType().equals("COMMA")){
+			tokens.poll();
+		TypeIdentifier td=getTypeIdentifier();
+		if(td==null){
+			System.out.println("Syntax 	Error in Type Identifier After Comma ");
+		}
+		while(td!=null){
+			
+			var.add(td);
+			if(tokens.peek().getType().equals("COMMA")){
+				tokens.poll();
+			 td=getTypeIdentifier();
+			 if(td==null){
+					System.out.println("Syntax 	Error in Type Identifier After Comma ");
+				}
+			}
+			else break;
+		}
+		}
+		return var;
+	}
+
+	public TypeIdentifier getTypeIdentifier() {
+		Type t;
+		Identifier id=new Identifier();
+		t=getType();
+		if(t==null){
+			//System.out.println("Syntax Error on identifier in type");
+			return null;
+		}
+		id=getIdentifier();
+		if(id==null){
+			System.out.println("Syntax Error on identifier "+ id.getValue() +" in getTypeIdentifier");
+			return null;
+		}
+		return new TypeIdentifier(t,id);
+	}
+			
 	public Statement getStatement()
 	{	
 		ArrayList<Statement> statements=new <Statement> ArrayList(0);
@@ -412,7 +475,8 @@ public class Parser {
 		StatementDash stmdash;
 		Identifier id;
 		StatementIdentifierDash stmid;
-		if(tokens.peek().getType().equals("LEFT_CURLY_B")){
+		if(tokens.peek().getType().equals("LEFT_CURLY_B"))
+		{
 			tokens.poll();							
 			statements = getStatements();
 			if(statements == null)
@@ -424,6 +488,10 @@ public class Parser {
 			{
 				tokens.poll();
 				return new StatementOrMore(statements);
+			}
+			else
+			{
+				System.out.println("Syntax Error on Right Curly Bracket '}' in getStatements");
 			}
 		}
 		else if(tokens.peek().getType().equals("IF"))
@@ -455,8 +523,16 @@ public class Parser {
 					}
 					return new StatementIfStatmentDash(exp,stm,stmdash);
 				}
+				else
+				{
+					System.out.println("Syntax Error on Right Round Bracket ')' in getStatements");
+
+				}
 			}
-			
+			else
+			{
+				System.out.println("Syntax Error on Left Round Bracket '(' in getStatements");
+			}
 		}
 		else if(tokens.peek().getType().equals("WHILE"))
 		{
@@ -481,6 +557,14 @@ public class Parser {
 					}
 					return new StatementWhileExp(exp,stm);
 				}
+				else
+				{
+					System.out.println("Syntax Error on Right Round Bracket ')' in getStatements");
+				}
+			}
+			else
+			{
+				System.out.println("Syntax Error on Left Round Bracket '(' in getStatements");
 			}
 		}
 		else if(tokens.peek().getType().equals("SYSTEM.OUT.PRINTLN"))
@@ -504,6 +588,14 @@ public class Parser {
 						return new StatementSysoExp(exp);
 					}
 				}
+				else
+				{
+					System.out.println("Syntax Error on Right Round Bracket ')' in getStatements");
+				}
+			}
+			else
+			{
+				System.out.println("Syntax Error on Left Round Bracket '(' in getStatements");
 			}
 		}
 		else if(tokens.peek().getType().equals("ID"))
@@ -534,7 +626,7 @@ public class Parser {
 			stm = getStatement();
 			if(stm == null)
 			{
-				System.out.println("Syntax Error on Statement");
+				System.out.println("Syntax Error on StatementElseStatement");
 				return null;
 			}
 			return new StatementDashElseStatement(stm);
@@ -549,7 +641,7 @@ public class Parser {
 	{
 		Expression exp1;
 		Expression exp2;
-		if(tokens.peek().getType().equals("EQUAL"))
+		if(tokens.peek().getType().equals("ASSIGNMENT"))
 		{
 			tokens.poll();
 			exp1 = getExpression();
@@ -562,6 +654,10 @@ public class Parser {
 			{
 				tokens.poll();
 				return new StatementIdentifierDashEqExp(exp1);
+			}
+			else
+			{
+				System.out.println("Syntax Error onSemicolon ';' in getStatementIdentifierDash");
 			}
 		}
 		else if(tokens.peek().getType().equals("LEFT_SQUARE_B"))
@@ -576,7 +672,7 @@ public class Parser {
 			if(tokens.peek().getType().equals("RIGHT_SQUARE_B"))
 			{
 				tokens.poll();
-				if(tokens.peek().getType().equals("EQUAL"))
+				if(tokens.peek().getType().equals("ASSIGNMENT"))
 				{
 					tokens.poll();
 					exp2 = getExpression();
@@ -590,9 +686,20 @@ public class Parser {
 						tokens.poll();
 						return new StatementIdentifierDashSquareBracket(exp1,exp2);
 					}
+					else
+					{
+						System.out.println("Syntax Error on Semicolon ';' in getStatementIdentifierDash");
+					}
+				}
+				else
+				{
+					System.out.println("Syntax Error on Assignment Operator '=' in getStatementIdentifierDash");
 				}
 			}
-			
+			else
+			{
+				System.out.println("Syntax Error on Right Square Bracket '[' in getStatementIdentifierDash");
+			}
 		}
 		return null;
 	}
@@ -614,6 +721,7 @@ public class Parser {
 		else if(tokens.peek().getType().equals("FLOAT_LITERAL"))
 		{
 			String floatLiteral = tokens.poll().getValue();
+		
 			expDash = getExpressionDash();
 			if(expDash == null)
 			{
@@ -621,6 +729,17 @@ public class Parser {
 				return null;
 			}
 			return new ExpressionLiterals(floatLiteral,expDash);
+		}
+		else if(tokens.peek().getType().equals("STRING_LITERAL"))
+		{
+			String stringLiteral = tokens.poll().getValue();
+			expDash = getExpressionDash();
+			if(expDash == null)
+			{
+				System.out.println("Syntax Error on StringLiteralExpressionDash");
+				return null;
+			}
+			return new ExpressionLiterals(stringLiteral,expDash);
 		}
 		else if(tokens.peek().getType().equals("TRUE") || tokens.peek().getType().equals("FALSE"))
 		{
@@ -708,12 +827,12 @@ public class Parser {
 				}
 				return new ExpressionLeftBracket(leftBracketExp,expDash);
 			}
+			else
+			{
+				System.out.println("Syntax Error on Right Round Bracket ')' in getExpression");
+			}
 		}
 		//System.out.println("Syntax Error on Major Expression");
-		//System.out.println(tokens.poll().getType());
-		//System.out.println(tokens.poll().getType());
-		//System.out.println(tokens.poll().getType());
-
 		return null;
 	}
 	
@@ -768,6 +887,10 @@ public class Parser {
 				}
 				return new ExpressionDashLeftSquare(leftSqExp, expDash);
 			}
+			else
+			{
+				System.out.println("Syntax Error on Right Square Bracket ']' in getExpressionDash");
+			}
 		}
 		else if(tokens.peek().getType().equals("DOT"))
 		{
@@ -795,7 +918,7 @@ public class Parser {
 		if(tokens.peek().getType().equals("INT") ||
 		   tokens.peek().getType().equals("FLOAT")||
 		   tokens.peek().getType().equals("STRING")||
-		   tokens.peek().getType().equals("CHAR")||
+		   tokens.peek().getType().equals("CHARACTER")||
 		   tokens.peek().getType().equals("BOOLEAN"))
 		{
 			String dataType = tokens.poll().getValue();
@@ -818,6 +941,10 @@ public class Parser {
 						return null;
 					}
 					return new ExpressionNewDashDataType(dataType,dataTypeExp,expDash);
+				}
+				else
+				{
+					System.out.println("Syntax Error on Right Square Bracket ']' in getExpressionNewDash");
 				}
 			}
 		}
@@ -844,9 +971,16 @@ public class Parser {
 						}
 						return new ExpressionNewDashIdentifier(expNewID,exps,expDash);
 					}
+					else
+					{
+						System.out.println("Syntax Error on Right Round Bracket ')' in getExpression");
+					}
 				}
+			else
+			{
+				System.out.println("Syntax Error on Left Round Bracket '(' in getExpressionNewDash");
 			}
-		//System.out.println(tokens.peek().getValue());
+			}
 		System.out.println("Syntax Error on ExpressionNewDash");
 		return null;
 	}
@@ -878,8 +1012,16 @@ public class Parser {
 					tokens.poll();
 					exp=getExpression();
 				}
-				else return expArray;
+				else
+				{
+						System.out.println("Syntax Error on Comma ',' in getExpressions");
+						return expArray;
+				}
 			}
+		}
+		else
+		{
+			System.out.println("Syntax Error on Comma ',' in getExpressions");
 		}
 		return expArray;
 	}
@@ -887,8 +1029,9 @@ public class Parser {
 	public ExpressionDotDash getExpressionDotDash()
 	{
 		ExpressionDash expDash;
-		if(tokens.peek().getValue().equals("LENGTH"))
+		if(tokens.peek().getType().equals("LENGTH"))
 		{
+			
 			tokens.poll();
 			expDash = getExpressionDash();
 			if(expDash == null)
@@ -932,7 +1075,7 @@ public class Parser {
 		if(tokens.peek().getType().equals("INT") ||
 		   tokens.peek().getType().equals("FLOAT")||
 		   tokens.peek().getType().equals("STRING")||
-		   tokens.peek().getType().equals("CHAR")||
+		   tokens.peek().getType().equals("CHARACTER")||
 		   tokens.peek().getType().equals("BOOLEAN"))
 		{
 		   String dataType = tokens.poll().getValue();
@@ -950,13 +1093,17 @@ public class Parser {
 	
 	public TypeDash getTypeDash()
 	{
-		if(tokens.peek().getValue().equals("LEFT_SQUARE_B"))
+		if(tokens.peek().getType().equals("LEFT_SQUARE_B"))
 		{
 			tokens.poll();
-			if(tokens.peek().getValue().equals("RIGHT_SQUARE_B"))
+			if(tokens.peek().getType().equals("RIGHT_SQUARE_B"))
 			{
 				tokens.poll();
 				return new TypeDashBrackets();
+			}
+			else
+			{
+				System.out.println("Syntax Error on Right Sqaure Bracker '}' in getTypeDash");
 			}
 		}
 		else
@@ -981,7 +1128,7 @@ public class Parser {
 	{
 		Parser p = new Parser("input.txt");
 		Goal root = p.parse();
-		System.out.println(root.getValue());
+		if(root!=null)System.out.println(root.getValue());
 	}
 
 }

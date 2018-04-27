@@ -25,6 +25,6 @@ public class MainClass implements Root{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		return "class " + id1.getValue() + " {  \n  \t public static void main ("+"String"+"[] "
-				+id2.getValue()+ ") { \n \t \t" +stmt.getValue()+" \n \t \t } \n \t } \n";
+				+id2.getValue()+ ") { \n \t \t " +stmt.getValue()+" \n \t \t  } \n \t } \n";
 	}
 }

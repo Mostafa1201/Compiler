@@ -1,3 +1,4 @@
+
 package LexicalAnalyzer;
 import java.io.*;
 import java.util.LinkedList;
@@ -1017,13 +1018,14 @@ public class Tokenizer {
                 fill += " ";
             input.replace(matcher.start(), matcher.end(), fill);
         }
+        System.out.println("*************************Lexicel Analysis*************************");
         for (int i : indexMap.keySet()) {
         		System.out.println(indexMap.get(i).type);
         		tokensQueue.add(indexMap.get(i));
         }  
 		tokensQueue.add(new Token("EOF" , "EOF"));
 		System.out.println("EOF");
-
+        System.out.println("*************************Syntax Analysis*************************");
     }
 
     public static void print() {

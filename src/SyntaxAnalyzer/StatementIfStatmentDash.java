@@ -28,7 +28,7 @@ public class StatementIfStatmentDash implements Statement{
 	@Override
 	public String getValue() {
 		return "\t" + IF + leftParenthesis + expression.getValue() + rightParenthesis +
-				" \n \t \t \t" + statment.getValue() + statementdash.getValue();
+				"\n \t \t \t" + statment.getValue() + "\t \t" + statementdash.getValue();
 	}
 	
 

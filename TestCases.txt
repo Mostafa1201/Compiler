@@ -1,3 +1,35 @@
+class Us {
+public static void main(String[] a){
+if(num==0)x=x+1;
+}
+}
+
+class You extends Us{
+int y;
+int y;
+int y;
+prince(float g,int t){
+	int z;
+	int z;
+	int z;
+	{
+	if(x==3)x=4;
+	}
+}
+private int hey(String a){
+int y;
+int y;
+int y;
+
+{
+if(x==5)x=x+1;
+}
+return x;
+}
+}
+
+
+***************************
 class Main 
 {
 	public static void main(String[] args)
@@ -44,4 +76,28 @@ class ourClass {
 		}
 		return this.b() + this.s();
 	}
+}
+********************************************
+class Main {
+    public static void main ( String [ ] args ) {
+        while ( x < 7 ) {
+            x = 2 ;
+            x = x.length ;
+            System.out.println("HI") ;
+        }
+    }
+}
+class Test extends Main {
+    int [] x ;
+    int y ;
+    Test ( String s ) { }
+    public int testFun ( int x , float y ) {
+        if ( x > y)
+            if (x > 0)
+               x = 1;
+        else
+            y = x;
+        x[0] = 1 ;
+        return x + 1 ;
+    }
 }

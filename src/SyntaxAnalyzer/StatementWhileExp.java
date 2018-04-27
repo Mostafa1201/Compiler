@@ -26,8 +26,8 @@ public class StatementWhileExp implements Statement{
 
 	@Override
 	public String getValue() {
-		return While + leftParenthesis + expression.getValue() + rightParenthesis +
-				"\n" + statment.getValue();
+		return "\t" + While + leftParenthesis + expression.getValue() + rightParenthesis +
+				"\n \t" + statment.getValue();
 	}
 	
 
