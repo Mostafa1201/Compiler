@@ -1022,14 +1022,14 @@ public class Tokenizer {
             input.replace(matcher.start(), matcher.end(), fill);
         }
         for (int i : indexMap.keySet()) {
-        	if(indexMap.get(i).type!="EOL")
+        	if(!indexMap.get(i).type.equals("EOL") && !indexMap.get(i).type.equals("S_COMMENTS") && !indexMap.get(i).type.equals("M_COMMENTS"))
         		tokensQueue.add(indexMap.get(i));
         }  
-		tokensQueue.add(new Token("EOF" , "EOF"));
+		tokensQueue.add(new Token("EOF" , "End Of File"));
     }
 
     public static void print() {
-        System.out.println("*************************Lexicel Analysis*************************");
+        System.out.println("*************************Lexical Analysis*************************");
         output("clear file content !" , true);
         for (int i : indexMap.keySet()) {
             if (indexMap.get(i).type.contains("ERROR")) {output("ERROR: \"" + indexMap.get(i).getValue() + "\" This token did not match any RE @ index " + i , false); }
@@ -1039,7 +1039,7 @@ public class Tokenizer {
             if (indexMap.get(i).type.equals("EOL")) {
                 output("---------------------------------------------" , false);
             }
-        }     
+        }             
         System.out.println("<EOF> : -End Of File-");
         System.out.println("*************************Syntax Analysis*************************");
     }
@@ -1071,6 +1071,7 @@ public class Tokenizer {
 
         print();
     }
+    
 
     public static void main(String args[]) {
         String filename="input.txt";

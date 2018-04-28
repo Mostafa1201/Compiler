@@ -1,46 +1,23 @@
-class HelloWorld
-{
-	public static void main(String[] args) {
-		
-		if(x==1)x=x+2;
-		
-	}
-}
-
-class BinaryClass
-{
-
-	int data;
-    int size;
-	BinaryClass () {
-		if(x==1)x=x+2;
-	}
-	
-	public boolean init ()
-	{
-		data = new int[5];
-		data[0] = 1;
-		data[1] = 2;
-		data[2] = 3;
-		data[3] = 4;
-		data[4] = 5;
-		return true;
-	}
-    public boolean binarySearch(int key) 
-    {
-         int low;
-         int high;
-         int midddle;
-		 boolean res;
-		 low = 0;
-		 high = size -1;
-         while(high < low) {
-              middle =low + high;
-             
+class Main {
+    public static void main ( String [ ] args ) {
+        while ( x < 7 ) {
+            x = 2 ;
+            x = x.length ;
+            System.out.println("HI") ;
         }
-        res= false;
-		return res;
-   }
+    }
 }
-	
-	
+class Test extends cl {
+    int [] x ;
+    int y ;
+    Test ( String s,String ) { }
+    public int testFun ( int x , float y ) {
+        if ( x > y)
+            if (x > 0)
+               x = 1;
+        else
+            y = x;
+        x[0] = 1 ;
+        return x + 1 ;
+    }
+}

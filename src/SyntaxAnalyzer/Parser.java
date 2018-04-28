@@ -51,7 +51,7 @@ public class Parser {
 				id1 = getIdentifier();
 				if(id1 == null)
 				{
-					System.out.println("Syntax Error on Identifier " + id1.getValue() + " in Main Class");
+					System.out.println("Syntax Error on Identifier in Main Class");
 					return null;
 				}
 				if(!tokens.peek().getType().equals("LEFT_CURLY_B"))
@@ -89,7 +89,7 @@ public class Parser {
 														id2 = getIdentifier();
 														if(id2 == null)
 														{
-															System.out.println("Syntax Error on Identifier" + id2.getValue() + "In Main Class");
+															System.out.println("Syntax Error on Identifier In Main Class");
 															return null;
 														}
 														if(tokens.peek().getType().equals("RIGHT_ROUND_B"))
@@ -162,6 +162,11 @@ public class Parser {
 					}
 				}
 			}
+			else
+			{
+				System.out.println("Cannot find 'id' Keyword in Class Declaration");
+				return null;
+			}
 		}
 		else
 		{
@@ -195,7 +200,7 @@ public class Parser {
 			id1 = getIdentifier();
 			if(id1 == null)
 			{
-				System.out.println("Syntax Error on Identifier "+id1.getValue()+ " in Class Declaration");
+				System.out.println("Syntax Error on Identifier in Class Declaration");
 				return null;
 			}
 			ed = getExtendsId();
@@ -208,6 +213,12 @@ public class Parser {
 				vd=getVarDeclarations();
 				
 				cd=getConstructorDeclarations();
+				for(int i=0;i<cd.size();i++){
+					if(!cd.get(i).id.getValue().equals(id1.getValue())){
+						System.out.println("Syntax Error in constructor name :MUST MATCH CLASS NAME in class "+id1.getValue());
+						return null;
+					}
+				}
 					
 				md=getMethodDeclarations();
 				if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
@@ -393,7 +404,7 @@ public class Parser {
 		id = getIdentifier();
 		if(id == null)
 		{
-			System.out.println("Syntax Error on IdentifierVarDeclaration " + id + " in Var Declaration");
+			System.out.println("Syntax Error on IdentifierVarDeclaration in Var Declaration");
 			return null;
 		}
 		if(tokens.peek().getType().equals("SEMICOLON")){
@@ -423,7 +434,7 @@ public class Parser {
 			tokens.poll();
 			id=getIdentifier();
 			if(id==null){
-				System.out.println("Syntax Error on Identifier" + id.getValue() + "in ExtendsID");
+				System.out.println("Syntax Error on Identifier in ExtendsID");
 				return null;
 			}
 			return new ExtendsID(id);
@@ -466,7 +477,7 @@ public class Parser {
 		}
 		id=getIdentifier();
 		if(id==null){
-			System.out.println("Syntax Error on identifier "+ id.getValue() +" in getTypeIdentifier");
+			System.out.println("Syntax Error on identifier in getTypeIdentifier");
 			return null;
 		}
 		return new TypeIdentifier(t,id);
@@ -1017,11 +1028,11 @@ public class Parser {
 					tokens.poll();
 					exp=getExpression();
 				}
-				/*else
+				else
 				{
-						System.out.println("Syntax Error on Comma ',' in getExpressions");
+						//System.out.println("Syntax Error on Comma ',' in getExpressions");
 						return expArray;
-				}*/
+				}
 			}
 		}
 		/*else
@@ -1119,6 +1130,7 @@ public class Parser {
 		System.out.println("Syntax Error on TypeDash");
 		return null;
 	}
+	
 	public Identifier getIdentifier()
 	{
 		if(tokens.peek().getType().equals("ID"))
