@@ -70,7 +70,7 @@ public class MethodDeclaration implements Root {
 		else{
 			for(int i = 0  ; i < stmt.size() ; i++)	
 			{
-				sttemp += stmt.get(i).getValue()+" ";
+				sttemp += stmt.get(i).getValue()+"\n";
 			}
 		}
 		if(typeIDs == null)				return "\t " + classType +" " + tid.getValue()+  leftParanthesis + rightParanthesis +leftCurly+"\n" + vtemp+" \t"+sttemp+"\n \t "+Return+ " " + exp.getValue()+semicolon+ "\n \t "+rightCurly;

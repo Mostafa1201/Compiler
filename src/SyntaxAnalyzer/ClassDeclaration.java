@@ -55,7 +55,7 @@ public class ClassDeclaration implements Root{
 		{
 			for(int i = 0  ; i < marr.size() ; i++)
 			{
-				mtemp += marr.get(i).getValue()+" ";
+				mtemp += marr.get(i).getValue()+"\n";
 			}
 		}
 		if(extendsID!=null){

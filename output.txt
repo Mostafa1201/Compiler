@@ -1,49 +1,226 @@
 <CLASS> : -class-
-<ID> : -class1-
+<ID> : -HelloWorld-
+<EOL> : -End of line-
+---------------------------------------------
 <LEFT_CURLY_B> : -{-
 <EOL> : -End of line-
 ---------------------------------------------
-<INT> : -int-
-<ID> : -value-
-<ASSIGNMENT> : -=-
-<INTEGER_LITERAL> : 3
-<SEMICOLON> : -;-
-<EOL> : -End of line-
----------------------------------------------
-<STRING> : -String-
-<ID> : -text-
-<ASSIGNMENT> : -=-
-<STRING_LITERAL> : "int x = 1"
-<SEMICOLON> : -;-
-<EOL> : -End of line-
----------------------------------------------
-<M_COMMENTS> : -/*
-		if (num < 1)
-            	num = num +1 ;
-	*/-
-<EOL> : -End of line-
----------------------------------------------
-<PRIVATE> : -private-
+<PUBLIC> : -public-
+<STATIC> : -static-
 <VOID> : -void-
-<ID> : -print-
+<MAIN> : -main-
 <LEFT_ROUND_B> : -(-
+<STRING> : -String-
+<LEFT_SQUARE_B> : -[-
+<RIGHT_SQUARE_B> : -]-
+<ID> : -args-
 <RIGHT_ROUND_B> : -)-
-<EOL> : -End of line-
----------------------------------------------
 <LEFT_CURLY_B> : -{-
 <EOL> : -End of line-
 ---------------------------------------------
 <SYSTEM.OUT.PRINTLN> : -System.out.println -
 <LEFT_ROUND_B> : -(-
-<STRING_LITERAL> : "/*hello*/"
+<NEW> : -new-
+<ID> : -BinaryClass-
+<LEFT_ROUND_B> : -(-
+<RIGHT_ROUND_B> : -)-
+<DOT> : -.-
+<ID> : -binarySearch-
+<LEFT_ROUND_B> : -(-
+<INTEGER_LITERAL> : 10
+<RIGHT_ROUND_B> : -)-
 <RIGHT_ROUND_B> : -)-
 <SEMICOLON> : -;-
 <EOL> : -End of line-
 ---------------------------------------------
+<EOL> : -End of line-
+---------------------------------------------
 <RIGHT_CURLY_B> : -}-
 <EOL> : -End of line-
 ---------------------------------------------
 <RIGHT_CURLY_B> : -}-
+<EOL> : -End of line-
+---------------------------------------------
+<EOL> : -End of line-
+---------------------------------------------
+<CLASS> : -class-
+<ID> : -BinaryClass-
+<EOL> : -End of line-
+---------------------------------------------
+<LEFT_CURLY_B> : -{-
+<EOL> : -End of line-
+---------------------------------------------
+<INT> : -int-
+<ID> : -data-
 <SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<INT> : -int-
+<ID> : -size-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<EOL> : -End of line-
+---------------------------------------------
+<PUBLIC> : -public-
+<BOOLEAN> : -boolean-
+<ID> : -init-
+<LEFT_ROUND_B> : -(-
+<RIGHT_ROUND_B> : -)-
+<EOL> : -End of line-
+---------------------------------------------
+<LEFT_CURLY_B> : -{-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<ASSIGNMENT> : -=-
+<NEW> : -new-
+<INT> : -int-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 5
+<RIGHT_SQUARE_B> : -]-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 0
+<RIGHT_SQUARE_B> : -]-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 1
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 1
+<RIGHT_SQUARE_B> : -]-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 2
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 2
+<RIGHT_SQUARE_B> : -]-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 3
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 3
+<RIGHT_SQUARE_B> : -]-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 4
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -data-
+<LEFT_SQUARE_B> : -[-
+<INTEGER_LITERAL> : 4
+<RIGHT_SQUARE_B> : -]-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 5
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<RETURN> : -return-
+<TRUE> : -true-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<RIGHT_CURLY_B> : -}-
+<EOL> : -End of line-
+---------------------------------------------
+<PUBLIC> : -public-
+<BOOLEAN> : -boolean-
+<ID> : -binarySearch-
+<LEFT_ROUND_B> : -(-
+<INT> : -int-
+<ID> : -key-
+<RIGHT_ROUND_B> : -)-
+<EOL> : -End of line-
+---------------------------------------------
+<LEFT_CURLY_B> : -{-
+<EOL> : -End of line-
+---------------------------------------------
+<INT> : -int-
+<ID> : -low-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<INT> : -int-
+<ID> : -high-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<INT> : -int-
+<ID> : -midddle-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<BOOLEAN> : -boolean-
+<ID> : -res-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -low-
+<ASSIGNMENT> : -=-
+<INTEGER_LITERAL> : 0
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -high-
+<ASSIGNMENT> : -=-
+<ID> : -size-
+<MINUS> : -
+<INTEGER_LITERAL> : 1
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<WHILE> : -while-
+<LEFT_ROUND_B> : -(-
+<ID> : -high-
+<LESSTHAN> : -<-
+<ID> : -low-
+<RIGHT_ROUND_B> : -)-
+<LEFT_CURLY_B> : -{-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -middle-
+<ASSIGNMENT> : -=-
+<ID> : -low-
+<PLUS> : -+-
+<ID> : -high-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<EOL> : -End of line-
+---------------------------------------------
+<RIGHT_CURLY_B> : -}-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -res-
+<ASSIGNMENT> : -=-
+<FALSE> : -false-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<RETURN> : -return-
+<ID> : -res-
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<RIGHT_CURLY_B> : -}-
+<EOL> : -End of line-
+---------------------------------------------
+<RIGHT_CURLY_B> : -}-
+<EOL> : -End of line-
+---------------------------------------------
+<EOL> : -End of line-
+---------------------------------------------
 <EOL> : -End of line-
 ---------------------------------------------

@@ -1,47 +1,41 @@
-class Main 
+class HelloWorld
 {
-	public static void main(String[] args)
-	{
-		{
-			if(num==0&&x!=1)x=x+1;
-			else if(num[10].length >= x[true].id())
-			{ 
-				num = new int [2] && new boolean [true];
-				id =  this;  
-			}
-			else System.out.println("Hello");
-			while(true)
-			{
-				id1 = false;
-				id2[5.5] = true;
-			}
-		}
+	public static void main(String[] args) {
+		System.out.println(new BinaryClass().binarySearch(10));
+		
 	}
 }
 
-class ourClass {
-	int age;
-	String name;
-	boolean gender;
-	float salary;
-	char [] address;
-	ourClass(int age,String name,boolean gender,float salary,char[] address)
+class BinaryClass
+{
+	int data;
+    int size;
+
+	public boolean init ()
 	{
-		int x;
-		age = this.age();
-		name = this.name();
-		gender = this.gender();
-		salary = this.salary();
-		address = this.address();		
+		data = new int [5];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+		data[3] = 4;
+		data[4] = 5;
+		return true;
 	}
-	protected String getData(boolean b,String s)
-	{
-		while(false)
-		{
-			b = !true && new s ();
-			s = (!false || "Hello");
-			System.out.println("Hey all!");
-		}
-		return this.b() + this.s();
-	}
+    public boolean binarySearch(int key) 
+    {
+         int low;
+         int high;
+         int midddle;
+		 boolean res;
+		 low = 0;
+		 high = size -1;
+         while(high < low) {
+              middle =low + high;
+             
+        }
+        res= false;
+		return res;
+   }
 }
+	
+	

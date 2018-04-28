@@ -22,6 +22,10 @@ public class Parser {
 	
 	public Goal getGoal()
 	{
+		if(tokens.peek().getType().equals("M_COMMENTS") || tokens.peek().getType().equals("S_COMMENTS") )
+		{
+			System.out.println(tokens.poll().getValue());
+		}
 		MainClass mainClass = getMainClass();
 		if(mainClass != null)
 		{
@@ -37,7 +41,7 @@ public class Parser {
 	{
 		Identifier id1 = new Identifier();
 		Identifier id2 = new Identifier();
-		Statement stm;
+		ArrayList<Statement> stms;
 		if(tokens.peek().getType().equals("CLASS"))
 		{
 			tokens.poll();
@@ -93,8 +97,8 @@ public class Parser {
 															if(tokens.peek().getType().equals("LEFT_CURLY_B"))
 															{
 																tokens.poll();							
-																stm = getStatement();
-																if(stm == null)
+																stms = getStatements();
+																if(stms == null)
 																{
 																	System.out.println("Syntax Error on MainClassStatement");
 																	return null;
@@ -106,7 +110,7 @@ public class Parser {
 																	if(tokens.peek().getType().equals("RIGHT_CURLY_B"))
 																	{
 																		tokens.poll();
-																		return new MainClass(id1,id2,stm);
+																		return new MainClass(id1,id2,stms);
 																	}
 																	else{
 																		System.out.println("Syntax Error on right curly bracket '}' in Main Class");
@@ -1012,17 +1016,17 @@ public class Parser {
 					tokens.poll();
 					exp=getExpression();
 				}
-				else
+				/*else
 				{
 						System.out.println("Syntax Error on Comma ',' in getExpressions");
 						return expArray;
-				}
+				}*/
 			}
 		}
-		else
+		/*else
 		{
 			System.out.println("Syntax Error on Comma ',' in getExpressions");
-		}
+		}*/
 		return expArray;
 	}
 	

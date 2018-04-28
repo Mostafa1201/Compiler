@@ -13,9 +13,11 @@ public class Main {
 		ExpressionNewDashIdentifier expNewFac = new ExpressionNewDashIdentifier(idFac,expss,expDot);
 		ExpressionNew sysoExp = new ExpressionNew(expNewFac);
 		StatementSysoExp mainStmt = new StatementSysoExp(sysoExp);
+		ArrayList<Statement> mainStmts = new ArrayList<Statement>();
+		mainStmts.add(mainStmt);
 		Identifier idClassName = new Identifier("Factorial");
 		Identifier idA = new Identifier("a");
-		MainClass mainClass = new MainClass(idClassName,idA,mainStmt);
+		MainClass mainClass = new MainClass(idClassName,idA,mainStmts);
 		
 		ArrayList<ClassDeclaration> classDeclarations= new ArrayList<ClassDeclaration>();
 		ArrayList<MethodDeclaration> methodDeclarations = new ArrayList<MethodDeclaration>();

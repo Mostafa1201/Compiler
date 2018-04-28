@@ -28,7 +28,7 @@ public class Goal implements Root{
 		{
 			for(int i = 0 ; i < classDeclaration.size() ; i++)
 			{
-				str += classDeclaration.get(i).getValue() + ",";
+				str += classDeclaration.get(i).getValue() + "\n";
 			}
 		}
 		return mainClass.getValue() + str + "\n";

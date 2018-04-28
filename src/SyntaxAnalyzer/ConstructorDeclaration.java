@@ -49,7 +49,7 @@ public class ConstructorDeclaration implements Root{
 		{
 			for(int i = 0  ; i < stmt.size() ; i++)
 			{
-				sttemp += stmt.get(i).getValue()+" ";
+				sttemp += stmt.get(i).getValue()+"\n";
 			}
 		}
 		if(mtid!=null)

@@ -30,7 +30,7 @@ public class Tokenizer {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-       // print();
+        print();
     }
 
     public static void match(String x) {
@@ -1011,24 +1011,23 @@ public class Tokenizer {
         reg = "(\\n)";
         pattern = Pattern.compile(reg);
         matcher = pattern.matcher(input);
+        
         while (matcher.find()) {
-            //indexMap.put(matcher.start(), new Token("EOL", "End of line"));
+            indexMap.put(matcher.start(), new Token("EOL", "End of line"));
             String fill = "";
             for (int i = matcher.start(); i < matcher.end(); i++)
                 fill += " ";
             input.replace(matcher.start(), matcher.end(), fill);
         }
-        System.out.println("*************************Lexicel Analysis*************************");
         for (int i : indexMap.keySet()) {
-        		System.out.println(indexMap.get(i).type);
+        	if(indexMap.get(i).type!="EOL")
         		tokensQueue.add(indexMap.get(i));
         }  
 		tokensQueue.add(new Token("EOF" , "EOF"));
-		System.out.println("EOF");
-        System.out.println("*************************Syntax Analysis*************************");
     }
 
     public static void print() {
+        System.out.println("*************************Lexicel Analysis*************************");
         output("clear file content !" , true);
         for (int i : indexMap.keySet()) {
             if (indexMap.get(i).type.contains("ERROR")) {output("ERROR: \"" + indexMap.get(i).getValue() + "\" This token did not match any RE @ index " + i , false); }
@@ -1039,6 +1038,8 @@ public class Tokenizer {
                 output("---------------------------------------------" , false);
             }
         }     
+        System.out.println("<EOF> : -End Of File-");
+        System.out.println("*************************Syntax Analysis*************************");
     }
 
     public static void output(final String msg , boolean clear) {
