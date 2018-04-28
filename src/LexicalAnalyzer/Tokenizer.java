@@ -132,6 +132,18 @@ public class Tokenizer {
 
         }
 
+        reg = "(\\[)";
+        pattern = Pattern.compile(reg);
+        matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            indexMap.put(matcher.start(), new Token("LEFT_SQUARE_B", "["));
+            String fill = "";
+            for (int i = matcher.start(); i < matcher.end(); i++)
+                fill += " ";
+            input.replace(matcher.start(), matcher.end(), fill);
+
+        }     
+        
         reg = "(^\bint\b|\\bint\\b)($|[^a-zA-Z0-9])";
         pattern = Pattern.compile(reg);
         matcher = pattern.matcher(input);
@@ -226,17 +238,7 @@ public class Tokenizer {
             input.replace(matcher.start(), matcher.end(), fill);
         }
 
-        reg = "(\\[)";
-        pattern = Pattern.compile(reg);
-        matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            indexMap.put(matcher.start(), new Token("LEFT_SQUARE_B", "["));
-            String fill = "";
-            for (int i = matcher.start(); i < matcher.end(); i++)
-                fill += " ";
-            input.replace(matcher.start(), matcher.end(), fill);
 
-        }
 
         reg = "(\\()";
         pattern = Pattern.compile(reg);
