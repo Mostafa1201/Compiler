@@ -17,6 +17,7 @@ public class Parser {
 	
 	public Goal parse()
 	{
+		
 		return getGoal();
 	}
 	
@@ -1118,7 +1119,6 @@ public class Parser {
 		System.out.println("Syntax Error on TypeDash");
 		return null;
 	}
-	
 	public Identifier getIdentifier()
 	{
 		if(tokens.peek().getType().equals("ID"))

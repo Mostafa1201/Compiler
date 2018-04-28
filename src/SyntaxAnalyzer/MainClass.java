@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MainClass implements Root{
 	Identifier id1;
 	Identifier id2;
-	ArrayList<Statement> stmt;
+	ArrayList<Statement> stmt = new ArrayList<Statement>();
 	
 	public MainClass() {
 		super();
@@ -17,7 +17,6 @@ public class MainClass implements Root{
 	
 	public MainClass(Identifier id1,Identifier id2,ArrayList<Statement> stmt) {
 		super();
-		
 		this.id1 = id1;
 		this.id2 = id2;
 		this.stmt = stmt;
@@ -28,9 +27,12 @@ public class MainClass implements Root{
 		// TODO Auto-generated method stub
 		String stemp = "";
 		if(stmt.size() == 1)stemp += stmt.get(0).getValue();
-		for(int i = 0 ; i < stmt.size() ; i++)
-		{
-			stemp += stmt.get(i).getValue() + "\n";
+		else
+		{	
+			for(int i = 0 ; i < stmt.size() ; i++)
+			{
+				stemp += stmt.get(i).getValue() + "\n";
+			}
 		}
 		return "class " + id1.getValue() + " {  \n  \t public static void main ("+"String"+"[] "
 				+id2.getValue()+ ") { \n \t \t " + stemp +" \n \t \t  } \n \t } \n";

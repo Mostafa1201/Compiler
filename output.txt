@@ -18,18 +18,19 @@
 <LEFT_CURLY_B> : -{-
 <EOL> : -End of line-
 ---------------------------------------------
-<SYSTEM.OUT.PRINTLN> : -System.out.println -
+<EOL> : -End of line-
+---------------------------------------------
+<IF> : -if-
 <LEFT_ROUND_B> : -(-
-<NEW> : -new-
-<ID> : -BinaryClass-
-<LEFT_ROUND_B> : -(-
+<ID> : -x-
+<EQUAL> : -==-
+<INTEGER_LITERAL> : 1
 <RIGHT_ROUND_B> : -)-
-<DOT> : -.-
-<ID> : -binarySearch-
-<LEFT_ROUND_B> : -(-
-<INTEGER_LITERAL> : 10
-<RIGHT_ROUND_B> : -)-
-<RIGHT_ROUND_B> : -)-
+<ID> : -x-
+<ASSIGNMENT> : -=-
+<ID> : -x-
+<PLUS> : -+-
+<INTEGER_LITERAL> : 2
 <SEMICOLON> : -;-
 <EOL> : -End of line-
 ---------------------------------------------
@@ -58,6 +59,29 @@
 <INT> : -int-
 <ID> : -size-
 <SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<ID> : -BinaryClass-
+<LEFT_ROUND_B> : -(-
+<RIGHT_ROUND_B> : -)-
+<LEFT_CURLY_B> : -{-
+<EOL> : -End of line-
+---------------------------------------------
+<IF> : -if-
+<LEFT_ROUND_B> : -(-
+<ID> : -x-
+<EQUAL> : -==-
+<INTEGER_LITERAL> : 1
+<RIGHT_ROUND_B> : -)-
+<ID> : -x-
+<ASSIGNMENT> : -=-
+<ID> : -x-
+<PLUS> : -+-
+<INTEGER_LITERAL> : 2
+<SEMICOLON> : -;-
+<EOL> : -End of line-
+---------------------------------------------
+<RIGHT_CURLY_B> : -}-
 <EOL> : -End of line-
 ---------------------------------------------
 <EOL> : -End of line-

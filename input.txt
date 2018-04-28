@@ -1,16 +1,21 @@
 class HelloWorld
 {
 	public static void main(String[] args) {
-		System.out.println(new BinaryClass().binarySearch(10));
+		
+		if(x==1)x=x+2;
 		
 	}
 }
 
 class BinaryClass
 {
+
 	int data;
     int size;
-
+	BinaryClass () {
+		if(x==1)x=x+2;
+	}
+	
 	public boolean init ()
 	{
 		data = new int [5];
